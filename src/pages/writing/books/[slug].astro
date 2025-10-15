@@ -1,0 +1,43 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import PageLayout from '../../../layouts/PageLayout.astro';
+import BookHeader from '../../../components/BookHeader.astro';
+
+export type Props = {
+  post: CollectionEntry<'books'>;
+}
+
+export async function getStaticPaths() {
+  const posts = await getCollection('books');
+  return posts.map((post: CollectionEntry<'books'>) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post }: Props = Astro.props;
+const { Content } = await post.render();
+---
+
+<PageLayout title={post.data.title}>
+  <article class="pt-2 pb-2">
+
+    <BookHeader post={post} />
+
+    <a
+      href="/writing/books"
+      class="inline-block mb-1 text-sm text-blue-600 hover:text-blue-800 hover:underline"
+    >
+      ← back to books
+    </a>
+    <hr>
+
+    <p class="text-sm italic font-bold text-gray-600 mb-3 mt-3">
+      written on: {post.data.date.toLocaleDateString('en-CA')}
+    </p>
+
+    <div class="prose prose-gray max-w-none">
+      <Content />
+    </div>
+  </article>
+</PageLayout>

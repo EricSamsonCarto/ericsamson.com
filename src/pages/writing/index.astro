@@ -1,0 +1,52 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import ContentPreviewGrid from '../../components/ContentPreviewGrid.astro';
+import { getLatest } from '../../lib/content-helpers';
+
+const allTech = await getCollection('tech');
+const allBooks = await getCollection('books');
+const allLife = await getCollection('life');
+
+const latestTech = getLatest(allTech, 3);
+const latestBooks = getLatest(allBooks, 3);
+const latestLife = getLatest(allLife, 3);
+---
+
+<PageLayout title="Writing">
+	<div class="mt-4">
+		<div style="margin-bottom: 2rem;">
+			<ContentPreviewGrid
+				title="Tech"
+				items={latestTech}
+				collection="tech"
+				viewMoreUrl="/writing/tech"
+				viewMoreText="more tech"
+			/>
+		</div>
+
+		<hr style="margin: 1.3rem auto; margin-bottom: 2rem; border-color: #d1d5db; width: 70%;">
+
+		<div style="margin-bottom: 2rem;">
+			<ContentPreviewGrid
+				title="Books"
+				items={latestBooks}
+				collection="books"
+				viewMoreUrl="/writing/books"
+				viewMoreText="more books"
+			/>
+		</div>
+
+		<hr style="margin: 1.3rem auto; margin-bottom: 2rem; border-color: #d1d5db; width: 70%;">
+
+		<div>
+			<ContentPreviewGrid
+				title="Life"
+				items={latestLife}
+				collection="life"
+				viewMoreUrl="/writing/life"
+				viewMoreText="more life"
+			/>
+		</div>
+	</div>
+</PageLayout>

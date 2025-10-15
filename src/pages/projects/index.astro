@@ -1,0 +1,65 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import ContentListCard from '../../components/ContentListCard.astro';
+import { sortByDate } from '../../lib/content-helpers';
+
+const allProjects = await getCollection('projects');
+const sortedProjects = sortByDate(allProjects);
+const totalPages = Math.ceil(sortedProjects.length / 6);
+---
+
+<PageLayout title="Projects">
+  <div class="mt-4">
+    <h3 class="text-lg font-semibold mb-4 underline">projects</h3>
+
+    <!-- Grid - shows all items, pagination handled by script -->
+    <div id="content-grid" class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+      {sortedProjects.map((project) => (
+        <div class="paginated-item">
+          <ContentListCard
+            title={project.data.title}
+            date={project.data.date}
+            slug={project.slug}
+            thumbnail={project.data.thumbnail}
+            collection="projects"
+          />
+        </div>
+      ))}
+    </div>
+
+    <!-- Pagination controls -->
+    {totalPages > 1 && (
+      <div class="flex justify-center items-center gap-4 mt-8">
+        <button
+          id="prev-btn"
+          class="px-4 py-2 text-sm text-blue-600 hover:text-blue-800 hover:underline disabled:text-gray-400 disabled:no-underline disabled:cursor-not-allowed"
+        >
+          ← Previous
+        </button>
+
+        <span class="text-sm text-gray-600">
+          Page <span id="current-page">1</span> of <span id="total-pages">1</span>
+        </span>
+
+        <button
+          id="next-btn"
+          class="px-4 py-2 text-sm text-blue-600 hover:text-blue-800 hover:underline disabled:text-gray-400 disabled:no-underline disabled:cursor-not-allowed"
+        >
+          Next →
+        </button>
+      </div>
+    )}
+  </div>
+</PageLayout>
+
+<style>
+  .paginated-item.hidden {
+    display: none;
+  }
+</style>
+
+<script>
+  import { initializePagination } from '../../lib/pagination';
+  initializePagination(6);
+</script>

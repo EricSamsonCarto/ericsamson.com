@@ -1,0 +1,40 @@
+---
+import ContentCard from './ContentCard.astro';
+import type { CollectionEntry } from 'astro:content';
+
+type Props = {
+  title: string;
+  items: CollectionEntry<'projects' | 'tech' | 'books' | 'life'>[];
+  collection: 'projects' | 'tech' | 'books' | 'life';
+  viewMoreUrl: string;
+  viewMoreText: string;
+};
+
+const { title, items, collection, viewMoreUrl, viewMoreText } = Astro.props;
+---
+
+<section class="mt-2 mb-2">
+
+  <div class="flex gap-6">
+    {items.map((item) => (
+      <div class="flex-1 min-w-0">
+        <ContentCard
+          title={item.data.title}
+          date={item.data.date}
+          slug={item.slug}
+          thumbnail={item.data.thumbnail}
+          collection={collection}
+        />
+      </div>
+    ))}
+  </div>
+
+  <div class="flex justify-end mt-1">
+    <a
+      href={viewMoreUrl}
+      class="text-sm text-blue-600 hover:text-blue-800 hover:underline"
+    >
+      {viewMoreText} →
+    </a>
+  </div>
+</section>

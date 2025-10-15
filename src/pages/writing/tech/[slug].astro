@@ -1,0 +1,62 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import PageLayout from '../../../layouts/PageLayout.astro';
+
+export type Props = {
+  post: CollectionEntry<'tech'>;
+}
+
+export async function getStaticPaths() {
+  const posts = await getCollection('tech');
+  return posts.map((post: CollectionEntry<'tech'>) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post }: Props = Astro.props;
+const { Content } = await post.render();
+const thumbnailSrc = post.data.thumbnail?.replace('/public', '') || '';
+---
+
+<PageLayout title={post.data.title}>
+  <article class="pt-2 pb-2">
+    <h1 class="!text-4xl md:!text-5xl font-bold text-gray-900 mb-3 md:mb-4">
+        {post.data.title}
+    </h1>
+      {post.data.thumbnail && (
+        <div class="mb-2">
+          <Image
+            src={thumbnailSrc}
+            alt={post.data.title}
+            class="w-full rounded-lg shadow-lg"
+            width={1200}
+            height={630}
+            loading="eager"
+          />
+        </div>
+      )}
+    <div class="border-l-4 border-gray-300 pl-4 md:pl-6 py-2 md:py-3 mb-2 mt-2">
+      <p class="text-base md:text-lg text-gray-700 leading-relaxed italic">
+        {post.data.description}
+      </p>
+    </div>
+
+    <a
+      href="/writing/tech"
+      class="inline-block mb-1 text-sm text-blue-600 hover:text-blue-800 hover:underline"
+    >
+      ← back to tech
+    </a>
+    <hr>
+
+    <p class="text-sm italic font-bold text-gray-600 mb-3 mt-3">
+      written on: {post.data.date.toLocaleDateString('en-CA')}
+    </p>
+
+    <div class="prose prose-gray max-w-none prose-code:text-sm">
+      <Content />
+    </div>
+  </article>
+</PageLayout>

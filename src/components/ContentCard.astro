@@ -1,0 +1,51 @@
+---
+import { Image } from 'astro:assets';
+
+type Props = {
+  title: string;
+  date: Date;
+  slug: string;
+  thumbnail?: string;
+  collection: 'projects' | 'tech' | 'books' | 'life';
+};
+
+const { title, date, slug, thumbnail, collection } = Astro.props;
+
+// Build the correct URL based on collection
+const getUrl = () => {
+  if (collection === 'projects') return `/projects/${slug}`;
+  return `/writing/${collection}/${slug}`;
+};
+
+const url = getUrl();
+const thumbnailSrc = thumbnail?.replace('/public', '') || '';
+---
+
+<article class="group relative overflow-hidden rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200">
+  <a href={url} class="block relative">
+    {thumbnail && (
+      <div class="relative h-20 sm:h-24 md:h-28 overflow-hidden">
+        <Image
+          src={thumbnailSrc}
+          alt={title}
+          width={400}
+          height={300}
+          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+          loading="lazy"
+        />
+        <!-- Gradient overlay -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
+
+        <!-- Text overlay -->
+        <div class="absolute bottom-0 left-0 right-0 p-3 text-white">
+          <time class="text-[10px] text-white/90 block mb-1">
+            {date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+          </time>
+          <p class="text-xs font-semibold leading-tight line-clamp-2">
+            {title}
+          </p>
+        </div>
+      </div>
+    )}
+  </a>
+</article>
