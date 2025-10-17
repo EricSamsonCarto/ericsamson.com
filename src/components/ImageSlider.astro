@@ -1,0 +1,113 @@
+---
+/**
+ * ImageSlider Component
+ * A before/after image comparison slider with drag, touch, and keyboard support
+ *
+ * @param beforeImage - Path to the "before" image
+ * @param afterImage - Path to the "after" image
+ * @param beforeLabel - Label for the before image (optional)
+ * @param afterLabel - Label for the after image (optional)
+ * @param id - Unique ID for this slider instance (required if multiple sliders on page)
+ */
+
+import { Image } from 'astro:assets';
+import '../styles/image-slider.css';
+
+interface Props {
+  beforeImage: string;
+  afterImage: string;
+  beforeLabel?: string;
+  afterLabel?: string;
+  id?: string;
+  alt?: string;
+}
+
+const {
+  beforeImage,
+  afterImage,
+  beforeLabel = 'Before',
+  afterLabel = 'After',
+  id = `slider-${Math.random().toString(36).substr(2, 9)}`,
+  alt = 'Image comparison'
+} = Astro.props;
+---
+
+<div
+  id={id}
+  class="image-slider-container"
+  data-image-slider
+  role="img"
+  aria-label={`${beforeLabel} and ${afterLabel} comparison`}
+>
+  <div class="image-slider-images">
+    <!-- After image (bottom layer) -->
+    <img
+      src={afterImage}
+      alt={`${alt} - ${afterLabel}`}
+      class="image-slider-after"
+      loading="lazy"
+    />
+
+    <!-- Before image (top layer, clipped) -->
+    <img
+      src={beforeImage}
+      alt={`${alt} - ${beforeLabel}`}
+      class="image-slider-before"
+      loading="lazy"
+    />
+
+    <!-- Slider handle -->
+    <div
+      class="image-slider-handle"
+      role="slider"
+      aria-label="Image comparison slider"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="50"
+      aria-valuetext="50% between before and after"
+    >
+      <div class="image-slider-button" aria-hidden="true"></div>
+    </div>
+
+    <!-- Labels -->
+    {beforeLabel && (
+      <div class="image-slider-label image-slider-label-before" aria-hidden="true">
+        {beforeLabel}
+      </div>
+    )}
+    {afterLabel && (
+      <div class="image-slider-label image-slider-label-after" aria-hidden="true">
+        {afterLabel}
+      </div>
+    )}
+  </div>
+</div>
+
+<script>
+  import { ImageSlider } from '../scripts/image-slider.ts';
+
+  // Initialize slider when DOM is ready
+  function initSlider() {
+    const sliders = document.querySelectorAll('[data-image-slider]');
+    sliders.forEach((sliderElement) => {
+      const id = sliderElement.getAttribute('id');
+      if (id) {
+        try {
+          new ImageSlider(id);
+        } catch (error) {
+          console.error(`Failed to initialize slider ${id}:`, error);
+        }
+      }
+    });
+  }
+
+  // Run on initial load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSlider);
+  } else {
+    initSlider();
+  }
+
+  // Re-initialize on page navigation (for SPAs)
+  document.addEventListener('astro:page-load', initSlider);
+</script>

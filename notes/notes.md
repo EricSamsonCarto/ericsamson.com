@@ -1,6 +1,11 @@
 # Portfolio Website - Next Steps
 
-- Update and Clean Calculate Land Surface Temperature project page (inlcuding cleaning up the GitHub code so it's way better)
+- Review
+  - mdx files
+  - new imageslider file
+  - image-slider.ts under scripts
+  - should the image-slider be in the lib folder?
+
 - Get list together of all the projects from the original site we want to port over
   - Cartography Portfolio
   - Streamlit Python website zillow datasets (clean code)
