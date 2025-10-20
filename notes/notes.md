@@ -9,13 +9,13 @@
 - Get list together of all the projects from the original site we want to port over
   - Streamlit Python website zillow datasets (clean code)
   - Fill PDF with Pandas Dataframe (clean code)
-  - Hurricane Florence
   - Dispersed Camping Map (clean code)
-  - Mapping the Patriots Dynasty (clean code)
   - Landsat 8 Eastern Sierras
   - Remote Island Tristan Da Cunha
-  - Trinity Alps Snow Cover
+  - Mapping the Patriots Dynasty (clean code)
   - Kincade Fire
+  - Trinity Alps Snow Cover
+  - Hurricane Florence
 
 - New Tech Writing
   - Google Cloud ETL
