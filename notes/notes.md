@@ -7,7 +7,6 @@
   - should the image-slider be in the lib folder?
 
 - Get list together of all the projects from the original site we want to port over
-  - Cartography Portfolio
   - Streamlit Python website zillow datasets (clean code)
   - Fill PDF with Pandas Dataframe (clean code)
   - Hurricane Florence
