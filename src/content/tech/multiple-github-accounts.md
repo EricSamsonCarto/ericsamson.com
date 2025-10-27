@@ -14,11 +14,11 @@ This is fine, but sometimes I get an idea regarding a personal project (like thi
 I use VScode, so if you are doing your own git commands within a command line, some of this may not be relevant for you (and props to you, btw),
 
 1. In VScode bottom left, sign in with your desired GitHub account (sign out of professional one, if you are logged in).
-2. Open a terminal and change your global user information to your personal GitHub account:
+2. Open a terminal and change your global user information to your personal GitHub account (replace what's in the brackets with your personal information, do not include the brackets):
 
 ```bash
-git config --global [user.name](http://user.name/) "user"
-git config --global user.email "user@example.com"
+git config --global user.name "{user}"
+git config --global user.email "{user@example.com}"
 ```
 
 1. Sign out of GitHub in bottom left of VScode, then close VScode
@@ -31,8 +31,8 @@ git config --global user.email "user@example.com"
 5. Update the local git config on this repository. That way, you will always use your personal username and email for this repository:
 
 ```bash
-git config --local user.name "user"
-git config --local user.email "user@example.com"
+git config --local user.name "{user}"
+git config --local user.email "{user@example.com}"
 ```
 
 Now when you push changes in VScode for this repo, changes will come from your personal account!
@@ -62,7 +62,7 @@ Host github.com-personal
 	IdentityFile ~/.ssh/id_rsa
 ```
 
-1. Test the SSH connection. Open a terminal and run:
+4. Test the SSH connection. Open a terminal and run:
 
 ```bash
 ssh -T git@github.com
@@ -70,17 +70,17 @@ ssh -T git@github.com
 
 If prompted about the authenticity of the host, verify the fingerprint and type “yes” to continue.
 
-1. Open VS Code and the personal repository. run the command:
+5. Open VS Code and the personal repository. run the command:
 
 ```bash
-git remote set-url origin git@github.com:username/repository.git
+git remote set-url origin git@github.com:{username}/{repository}.git
 ```
 
-1. Set the local Git config to use your personal usernames:
+6. Set the local Git config to use your personal usernames:
 
 ```bash
-git config --local user.name "user"
-git config --local user.email "user@example.com"
+git config --local user.name "{user}"
+git config --local user.email "{user@example.com}"
 ```
 
 Make sure you are signed into your personal GitHub account within VScode, then attempt to do a git action. If set up correctly, it should use the SSH and utilize the correct credentials setup within the project! A bit annoying, but way better than absolutely nothing.

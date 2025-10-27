@@ -1,0 +1,27 @@
+---
+title: "The Kincade Fire"
+description: "Satellite imagery analysis of the 2019 Kincade Fire, the largest wildfire of California's 2019 fire season"
+date: 2019-11-05
+thumbnail: "/images/projects/kincade-fire/kincade-overview.jpg"
+---
+
+import ImageSlider from '../../components/ImageSlider.astro';
+
+I can remember stepping out of my apartment building in Walnut Creek and immediately being hit with the smell of fire in the air. This decrease in air quality posed a minor inconvenience to me, but a major problem for Sonoma county in the north. The Kincade fire started on October 23rd and burned just north of Healdsburg. It was the largest wildfire of the 2019 California fire season, burning a total of 77,758 acres until it was fully contained on November 6, 2019. I gathered the Sentinel-2 images that were available during the days that the fire burned. The GIF below uses data from October 22nd to November 1st, gathered using the Google Earth Engine API:
+
+![Kincade Fire Progression GIF](/images/projects/kincade-fire/kincade-spread.gif "GIF of Sentinel-2 data showing the expanding fire over the course of 9 days")
+
+The maps below were created in ArcGIS Pro. I created a heat map to visualize the concentration of buildings within the fire boundary using building data from the county of Sonoma. <a href="/images/projects/kincade-fire/kincade-map-analysis.jpg" target="_blank">Click here for full size</a>
+
+![Kincade Fire Heat Map](/images/projects/kincade-fire/kincade-map-analysis.jpg "Maps Created using data from ESRI and the County of Sonoma")
+
+The burn scar is clearly defined in orange/red in the Sentinel-2 images. The image slider below highlights the devastation left after the fire ripped through the Sonoma landscape:
+
+<ImageSlider
+  beforeImage="/images/projects/kincade-fire/kincade-oct22.jpg"
+  afterImage="/images/projects/kincade-fire/kincade-nov1st.jpg"
+  beforeLabel=""
+  afterLabel=""
+  id="kincade-fire-comparison"
+  alt="Sentinel-2 data showing the before/after burn scar damage"
+/>

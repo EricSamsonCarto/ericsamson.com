@@ -3,19 +3,16 @@
 - Review
   - mdx files
   - new imageslider file
-  - image-slider.ts under scripts
-  - should the image-slider be in the lib folder?
+  - image-slider.ts in lib
 
 - Get list together of all the projects from the original site we want to port over
   - Streamlit Python website zillow datasets (clean code)
   - Fill PDF with Pandas Dataframe (clean code)
   - Dispersed Camping Map (clean code)
+  - Mapping the Patriots Dynasty (clean code)
+  - Trinity Alps Snow Cover
   - Landsat 8 Eastern Sierras
   - Remote Island Tristan Da Cunha
-  - Mapping the Patriots Dynasty (clean code)
-  - Kincade Fire
-  - Trinity Alps Snow Cover
-  - Hurricane Florence
 
 - New Tech Writing
   - Google Cloud ETL

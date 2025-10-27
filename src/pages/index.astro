@@ -5,11 +5,9 @@ import PageLayout from '../layouts/PageLayout.astro';
 import ContentPreviewGrid from '../components/ContentPreviewGrid.astro';
 import { getLatest } from '../lib/content-helpers';
 
-// Get latest projects and tech posts
 const allProjects = await getCollection('projects');
 const allTech = await getCollection('tech');
 
-// Show 3 latest items
 const latestProjects = getLatest(allProjects, 3);
 const latestTech = getLatest(allTech, 3);
 ---
@@ -34,7 +32,7 @@ const latestTech = getLatest(allTech, 3);
 
 	<div class="max-w-3xl mx-auto animate-fade-in">
 		<div class="mb-6 mt-6">
-			
+
 			<div class="mt-3"></div>
 			<h1 class="text-4xl md:text-5xl font-bold mb-6">
 				Hi, I'm Eric 🗺️
