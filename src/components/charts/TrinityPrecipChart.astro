@@ -1,0 +1,49 @@
+---
+/**
+ * Trinity Alps Precipitation Chart
+ * Bar chart showing precipitation totals (mm) comparison between 2017-2018 and 2018-2019
+ */
+
+import Chart from '../Chart.astro';
+
+const precipData = {
+  datasets: [
+    {
+      label: '2017-2018',
+      data: [
+        { label: 'Nov', value: 18910 },
+        { label: 'Dec', value: 1220 },
+        { label: 'Jan', value: 14678 },
+        { label: 'Feb', value: 1398 },
+        { label: 'March', value: 16238 },
+        { label: 'April', value: 9430 },
+        { label: 'May', value: 2602 },
+      ],
+    },
+    {
+      label: '2018-2019',
+      data: [
+        { label: 'Nov', value: 14281 },
+        { label: 'Dec', value: 11544 },
+        { label: 'Jan', value: 23965 },
+        { label: 'Feb', value: 33000 },
+        { label: 'March', value: 16514 },
+        { label: 'April', value: 10602 },
+        { label: 'May', value: 9739 },
+      ],
+    },
+  ],
+};
+---
+
+<Chart
+  type="column"
+  title="Trinity Alps Wilderness Precip Totals (mm)"
+  subtitle="2018 vs 2019"
+  datasets={precipData.datasets}
+  height={400}
+  showLegend={true}
+  showGrid={true}
+  yAxisSuffix=" mm"
+  theme="light"
+/>

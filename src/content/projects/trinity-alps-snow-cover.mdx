@@ -1,0 +1,46 @@
+---
+title: "Trinity Alps Wilderness Snow Cover"
+description: "Analyzing snow cover differences between 2018 and 2019 using Landsat 8 imagery"
+date: 2018-08-09
+thumbnail: "/images/projects/trinity-alps/snow-cover-map.jpg"
+---
+
+import ImageSlider from '../../components/ImageSlider.astro';
+import PrecipChart from '../../components/charts/TrinityPrecipChart.astro';
+import SnowCoverChart from '../../components/charts/TrinitySnowCoverChart.astro';
+
+In late April of 2018, I completed one of the best backpacking trips of my life: The Canyon Creek trail in the Trinity Alps Wilderness. It was twenty sweaty miles of beautiful waterfalls and alpine lakes. The Trinity Alps Wilderness area remains a hidden gem in California, when compared to the rest of the state's National Parks and Wilderness areas. This past spring I was ready for another backpacking trip in the Alps, but I was stopped by the reports of high snow depth throughout the higher elevations.
+
+I first collected 2014 NAIP data to be used as the basemap imagery. Then, Landsat 8 images were collected for both years and mosaicked. To extract the pixels that indicate snow/ice from the landsat imagery, the raster calculator was used to grab NDSI values ≥ 0.4, which is supported by [Dozier (1989)](http://static1.1.sqspcdn.com/static/f/891472/15152129/1321451632750/Dozier_J._1989.pdf?token=%2FlrdsvRJguJsWE45wBVEY1wYIew%3D) and [Negi et al. (2009)](http://static1.1.sqspcdn.com/static/f/891472/15152236/1321452023017/Negi_et_al._2009.pdf?token=%2FlrdsvRJguJsWE45wBVEY1wYIew%3D). Obviously, a much more complex methodology is needed to extract the exact amount of pixels that indicate snow or ice, but this simplified calculation worked well enough for the visualization that I had in mind. I then used this output raster as a mask for the NAIP imagery, which revealed the Landsat imagery underneath, bringing out the bright blue snow that you see in the images.
+
+![NDSI Calculation Output](/images/projects/trinity-alps/trinity_conversion_example.jpg "NDSI Calculation Output")
+
+The output of the previous raster calculation can be seen in the image above. The raw naturalLook Landsat mosaics used in this project are displayed in a separate image slider below:
+
+<ImageSlider
+  beforeImage="/images/projects/trinity-alps/landsat-2018.jpg"
+  afterImage="/images/projects/trinity-alps/landsat-2019.jpg"
+  beforeLabel="May 2018"
+  afterLabel="May 2019"
+  alt="Landsat 8 mosaics comparison"
+/>
+
+*The above image slider shows two Landsat8 Mosaics, May 2018 and May 2019 Data Sources: LandSAT8, TIGER, USDA Forest Service, ESRI.*
+
+The output rasters were converted into polygons for further analysis. The May 2018 snow cover polygon took up a total area of 55 KM^2, while the May 2019 snow cover polygon took up a total area of 317 KM^2. That's an increase of 476.36%. For reference, the Trinity Wilderness boundary polygon that I used for this project has an area of 2185 KM^2. In May 2019, 14.5% of the wilderness was covered in snow and in May 2018, only 2.5% of the wilderness was covered:
+
+![Snow Cover Comparison Map](/images/projects/trinity-alps/snow-cover-map.jpg "Snow Cover Comparison Map")
+
+<SnowCoverChart />
+
+The next logical step was to evaluate how the climatic conditions differed between the two years. I gathered precipiation data from the [PRISM](http://www.prism.oregonstate.edu/recent/) model and clipped it down to the Trinity Alps area:
+
+![Precipitation Maps](/images/projects/trinity-alps/precip-maps.gif "Precipitation Maps")
+
+Even just visually, a few months of high contrast stand out (December, January, February). In order to gather the precipitation statistics of the 14 different rasters, I automated the "zonal statistics as table" arcpy tool using Python.
+
+The resulting data is displayed in the chart below. This chart was created using the FusionCharts javascript API. In 2019, the months of December through February saw very high precipitation totals when compared to the same months in 2018. These three months saw 17,296 mm of precipitation in 2018 and 68,509 mm of precipitation in 2019. The snowfall during these months in 2019 resulted in a larger snow depth throughout the higher elevations of the wilderness, which lasted well into the spring.
+
+<PrecipChart />
+
+If I had more time with this project, I would have gathered temperature data for 2018-2019 using the PRISM model and repeated the same process done above. I could have also gathered climate normals from PRISM and used them to determine how much each season deviated from the normal climatic conditions within the Trinity Alps.

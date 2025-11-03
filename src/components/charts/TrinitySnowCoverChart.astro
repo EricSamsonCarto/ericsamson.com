@@ -1,0 +1,32 @@
+---
+/**
+ * Trinity Alps Snow Cover Chart
+ * Column chart showing snow cover area comparison between May 2018 and May 2019
+ */
+
+import Chart from '../Chart.astro';
+
+const snowCoverData = {
+  datasets: [
+    {
+      label: 'Snow Cover Area',
+      data: [
+        { label: '2018', value: 55 },
+        { label: '2019', value: 317 },
+      ],
+    },
+  ],
+};
+---
+
+<Chart
+  type="column"
+  title="May Snow Cover (KM²)"
+  datasets={snowCoverData.datasets}
+  height={300}
+  showLegend={false}
+  showGrid={true}
+  yAxisSuffix=" KM²"
+  theme="light"
+  colors={['#3b82f6', '#10b981']}
+/>

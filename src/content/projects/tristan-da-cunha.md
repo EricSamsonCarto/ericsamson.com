@@ -1,0 +1,18 @@
+---
+title: "The Remote Island"
+description: "The most remote island in the world: Tristan Da Cunha"
+date: 2020-06-08
+thumbnail: "/images/projects/tristan-da-cunha/tristan_imagery_1.jpg"
+---
+
+The youtube algorithm recently recommended me a video that it correctly assumed I would be interested in watching: [Life on Tristan da Cunha – the World's Most Remote Inhabited Island.](https://www.youtube.com/watch?v=n4ElF8awm90) The video introduced me to an island completely detached from the speed of modern life. The island's 250 people maintain a quiet and reserved lifestyle. Everyone grows their own food on sectioned off agricultural land. They're a tight knit community that depend on their neighbors, seperated from most modern conveniences. The video provided a window into their lives that was a breath of fresh air during these chaotic times.
+
+I created the map above by sifting through archived Landsat 8 data. It was difficult to find imagery that wasn't covered in clouds. The tile above was acquired on 12.08.2019. Using the Level-1 Landsat dataset, I processed the bands in photoshop, and then georeferenced it back into ArcGIS Pro. There are no airstrips on Tristan, therefore a 6 day trip from Cape Town, South Africa is necessary to reach the island:
+
+![Location Map](/images/projects/tristan-da-cunha/tristan_route.jpg "Location Map")
+
+The map below shows a close up of the island. The bounding boxes indicate the only village, Edinburgh of the Seven Seas, and the community farming area. There is also a bus route on the island, which goes from Edinburgh to the farming area. The island is extremely mountainous, and only has one flat section in the northwest, which is where the village lies.
+
+The island's volcano, Queen Mary's Peak, last erupted in 1961. This forced the evacuation of the island's entire population. When the majority of the residents returned in 1963, they saw that the lava had flowed down to the ocean, just barely missing Edinburgh to the east. The lava beds are clearly visible in the Landsat imagery:
+
+![Tristan Da Cunha Detail Map](/images/projects/tristan-da-cunha/tristan_imagery_main.jpg "Tristan Da Cunha Detail Map")

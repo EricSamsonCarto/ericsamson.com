@@ -1,0 +1,113 @@
+---
+/**
+ * Chart Component
+ * A flexible, reusable chart component for data visualization
+ *
+ * @param type - Chart type: 'bar', 'column', or 'line'
+ * @param title - Chart title
+ * @param subtitle - Chart subtitle (optional)
+ * @param datasets - Array of datasets with labels and data points
+ * @param height - Chart height in pixels (default: 400)
+ * @param colors - Array of colors for datasets (optional)
+ * @param showLegend - Show legend (default: true for multiple datasets)
+ * @param showGrid - Show grid lines (default: true)
+ * @param animate - Animate chart on load (default: true)
+ * @param yAxisSuffix - Suffix for Y axis values (e.g., 'mm', '%', 'K')
+ * @param theme - Color theme: 'light' or 'dark' (default: 'light')
+ */
+
+import type { ChartConfig } from '../lib/chart';
+import '../styles/chart.css';
+
+interface Props {
+  type: 'bar' | 'column' | 'line';
+  title?: string;
+  subtitle?: string;
+  datasets: ChartConfig['datasets'];
+  height?: number;
+  colors?: string[];
+  showLegend?: boolean;
+  showGrid?: boolean;
+  animate?: boolean;
+  yAxisSuffix?: string;
+  theme?: 'light' | 'dark';
+  id?: string;
+}
+
+const {
+  type,
+  title,
+  subtitle,
+  datasets,
+  height = 400,
+  colors,
+  showLegend,
+  showGrid = true,
+  animate = true,
+  yAxisSuffix,
+  theme = 'light',
+  id = `chart-${Math.random().toString(36).substr(2, 9)}`,
+} = Astro.props;
+
+const config: ChartConfig = {
+  type,
+  title,
+  subtitle,
+  datasets,
+  height,
+  colors,
+  showLegend,
+  showGrid,
+  animate,
+  yAxisSuffix,
+  theme,
+};
+---
+
+<div
+  class="chart-container"
+  data-theme={theme}
+  role="img"
+  aria-label={title || 'Data chart'}
+>
+  <canvas
+    id={id}
+    class="chart-canvas"
+    data-chart
+    data-chart-config={JSON.stringify(config)}
+    style={`height: ${height}px;`}
+  >
+    Your browser does not support the canvas element.
+  </canvas>
+</div>
+
+<script>
+  import { Chart } from '../lib/chart.ts';
+
+  function initCharts() {
+    const charts = document.querySelectorAll('[data-chart]');
+    charts.forEach((chartElement) => {
+      const id = chartElement.getAttribute('id');
+      const configStr = chartElement.getAttribute('data-chart-config');
+
+      if (id && configStr) {
+        try {
+          const config = JSON.parse(configStr);
+          new Chart(id, config);
+        } catch (error) {
+          console.error(`Failed to initialize chart ${id}:`, error);
+        }
+      }
+    });
+  }
+
+  // Run on initial load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCharts);
+  } else {
+    initCharts();
+  }
+
+  // Re-initialize on page navigation (for SPAs)
+  document.addEventListener('astro:page-load', initCharts);
+</script>
