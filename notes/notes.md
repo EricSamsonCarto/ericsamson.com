@@ -6,6 +6,10 @@
   - image-slider.ts in lib
   - new chart library
 
+- website cleanup
+  - on mobile, only show two entries for the components , instead of three.
+  - remove all of the life entries except for the getting a map published page
+
 - Get list together of all the projects from the original site we want to port over
   - Streamlit Python website zillow datasets (clean code)
   - Fill PDF with Pandas Dataframe (clean code)
@@ -24,3 +28,4 @@
 
 - Life
   - getting a map published
+  - using a CGM (with line charts to show the CGM overtime)
