@@ -41,19 +41,23 @@ const {
 >
   <div class="image-slider-images">
     <!-- After image (bottom layer) -->
-    <img
+    <Image
       src={afterImage}
       alt={`${alt} - ${afterLabel}`}
       class="image-slider-after"
       loading="lazy"
+      width={1200}
+      height={800}
     />
 
     <!-- Before image (top layer, clipped) -->
-    <img
+    <Image
       src={beforeImage}
       alt={`${alt} - ${beforeLabel}`}
       class="image-slider-before"
       loading="lazy"
+      width={1200}
+      height={800}
     />
 
     <!-- Slider handle -->

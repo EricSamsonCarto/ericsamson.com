@@ -11,7 +11,6 @@ type Props = {
 
 const { title, date, slug, thumbnail, collection } = Astro.props;
 
-// Build the correct URL based on collection
 const getUrl = () => {
   if (collection === 'projects') return `/projects/${slug}`;
   return `/writing/${collection}/${slug}`;
