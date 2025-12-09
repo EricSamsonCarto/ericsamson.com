@@ -19,9 +19,9 @@
   - Mapping the Patriots Dynasty (clean code)
 
 - New Tech Writing
-  - Google Cloud ETL
   - Creating Custom experience builder widgets that include settings from the user
   - Firebase functions introduction
+  - Google Cloud ETL
   - Using the Cloud DEM creation thingy for a map
 
 - New Projects
