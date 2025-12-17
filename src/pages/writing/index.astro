@@ -14,39 +14,33 @@ const latestLife = getLatest(allLife, 3);
 ---
 
 <PageLayout title="Writing">
-	<div class="mt-4">
-		<div style="margin-bottom: 2rem;">
-			<ContentPreviewGrid
-				title="Tech"
-				items={latestTech}
-				collection="tech"
-				viewMoreUrl="/writing/tech"
-				viewMoreText="more tech"
-			/>
-		</div>
+	<div>
+		<ContentPreviewGrid
+			title="Tech"
+			items={latestTech}
+			collection="tech"
+			viewMoreUrl="/writing/tech"
+			viewMoreText="more tech"
+		/>
 
-		<hr style="margin: 1.3rem auto; margin-bottom: 2rem; border-color: #d1d5db; width: 70%;">
+		<hr class="my-3 border-gray-300 w-3/4 mx-auto">
 
-		<div style="margin-bottom: 2rem;">
-			<ContentPreviewGrid
-				title="Books"
-				items={latestBooks}
-				collection="books"
-				viewMoreUrl="/writing/books"
-				viewMoreText="more books"
-			/>
-		</div>
+		<ContentPreviewGrid
+			title="Books"
+			items={latestBooks}
+			collection="books"
+			viewMoreUrl="/writing/books"
+			viewMoreText="more books"
+		/>
 
-		<hr style="margin: 1.3rem auto; margin-bottom: 2rem; border-color: #d1d5db; width: 70%;">
+		<hr class="my-3 border-gray-300 w-3/4 mx-auto">
 
-		<div>
-			<ContentPreviewGrid
-				title="Life"
-				items={latestLife}
-				collection="life"
-				viewMoreUrl="/writing/life"
-				viewMoreText="more life"
-			/>
-		</div>
+		<ContentPreviewGrid
+			title="Life"
+			items={latestLife}
+			collection="life"
+			viewMoreUrl="/writing/life"
+			viewMoreText="more life"
+		/>
 	</div>
 </PageLayout>

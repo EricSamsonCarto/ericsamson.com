@@ -3,7 +3,7 @@ import ContentCard from './ContentCard.astro';
 import type { CollectionEntry } from 'astro:content';
 
 type Props = {
-  title: string;
+  title?: string;
   items: CollectionEntry<'projects' | 'tech' | 'books' | 'life'>[];
   collection: 'projects' | 'tech' | 'books' | 'life';
   viewMoreUrl: string;
@@ -13,10 +13,15 @@ type Props = {
 const { title, items, collection, viewMoreUrl, viewMoreText } = Astro.props;
 ---
 
-<section class="mt-2 mb-2">
+<section class="mt-2">
+  {title && (
+    <h3 class="text-lg font-semibold lowercase">
+      {title}
+    </h3>
+  )}
 
   <div class="flex gap-6">
-    {items.map((item) => (
+    {items.slice(0, 2).map((item) => (
       <div class="flex-1 min-w-0">
         <ContentCard
           title={item.data.title}
@@ -27,6 +32,17 @@ const { title, items, collection, viewMoreUrl, viewMoreText } = Astro.props;
         />
       </div>
     ))}
+    {items[2] && (
+      <div class="hidden md:block flex-1 min-w-0">
+        <ContentCard
+          title={items[2].data.title}
+          date={items[2].data.date}
+          slug={items[2].slug}
+          thumbnail={items[2].data.thumbnail}
+          collection={collection}
+        />
+      </div>
+    )}
   </div>
 
   <div class="flex justify-end mt-1">
