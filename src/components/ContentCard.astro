@@ -7,9 +7,10 @@ type Props = {
   slug: string;
   thumbnail?: string;
   collection: 'projects' | 'tech' | 'books' | 'life';
+  eager?: boolean;
 };
 
-const { title, date, slug, thumbnail, collection } = Astro.props;
+const { title, date, slug, thumbnail, collection, eager = false } = Astro.props;
 
 const getUrl = () => {
   if (collection === 'projects') return `/projects/${slug}`;
@@ -30,7 +31,7 @@ const thumbnailSrc = thumbnail?.replace('/public', '') || '';
           width={400}
           height={300}
           class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
-          loading="lazy"
+          loading={eager ? "eager" : "lazy"}
         />
         <!-- Gradient overlay -->
         <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent"></div>

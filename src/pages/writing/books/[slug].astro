@@ -26,13 +26,13 @@ const { Content } = await post.render();
 
     <a
       href="/writing/books"
-      class="inline-block mb-1 text-sm text-blue-600 hover:text-blue-800 hover:underline"
+      class="inline-block mb-1 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 hover:underline"
     >
       ← back to books
     </a>
-    <hr>
+    <hr class="dark:border-gray-600">
 
-    <p class="text-sm italic font-bold text-gray-600 mb-3 mt-3">
+    <p class="text-sm italic font-bold text-gray-600 dark:text-white mb-3 mt-3">
       written on: {post.data.date.toLocaleDateString('en-CA')}
     </p>
 

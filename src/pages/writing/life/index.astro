@@ -15,7 +15,7 @@ const totalPages = Math.ceil(sortedLife.length / 6);
 
     <!-- Grid - shows all items, pagination handled by script -->
     <div id="content-grid" class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
-      {sortedLife.map((post) => (
+      {sortedLife.map((post, index) => (
         <div class="paginated-item">
           <ContentListCard
             title={post.data.title}
@@ -23,6 +23,7 @@ const totalPages = Math.ceil(sortedLife.length / 6);
             slug={post.slug}
             thumbnail={post.data.thumbnail}
             collection="life"
+            eager={index < 6}
           />
         </div>
       ))}

@@ -29,6 +29,7 @@ const { title, items, collection, viewMoreUrl, viewMoreText } = Astro.props;
           slug={item.slug}
           thumbnail={item.data.thumbnail}
           collection={collection}
+          eager={true}
         />
       </div>
     ))}
@@ -40,6 +41,7 @@ const { title, items, collection, viewMoreUrl, viewMoreText } = Astro.props;
           slug={items[2].slug}
           thumbnail={items[2].data.thumbnail}
           collection={collection}
+          eager={true}
         />
       </div>
     )}

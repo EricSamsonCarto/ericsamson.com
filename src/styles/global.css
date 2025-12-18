@@ -6,6 +6,8 @@
   --font-family-sans: 'Raleway', sans-serif;
 }
 
+@variant dark (&:is(.dark *));
+
 body {
   font-family: 'Raleway', sans-serif;
   font-weight: 450;
@@ -28,6 +30,50 @@ h3 {
   font-size: 1.5rem;
   font-weight: 600;
   line-height: 2.25rem;
+}
+
+/* Dark mode text colors */
+.dark h1,
+.dark h2,
+.dark h3 {
+  color: white !important;
+}
+
+.dark p,
+.dark time,
+.dark strong,
+.dark b,
+.dark span,
+.dark blockquote {
+  color: white !important;
+}
+
+/* Dark mode for prose content - this is where blog/project content lives */
+.dark .prose {
+  color: white !important;
+}
+
+.dark .prose p,
+.dark .prose li,
+.dark .prose strong,
+.dark .prose b,
+.dark .prose em,
+.dark .prose i,
+.dark .prose code {
+  color: white !important;
+}
+
+.dark .prose a {
+  color: #60a5fa !important;
+}
+
+.dark .prose a:hover {
+  color: #93c5fd !important;
+}
+
+/* Dark mode for border elements */
+.dark .border-gray-300 {
+  border-color: #4b5563 !important;
 }
 
 /* Center all images in prose content */
