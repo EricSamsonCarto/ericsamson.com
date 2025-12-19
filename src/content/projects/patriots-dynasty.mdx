@@ -1,0 +1,51 @@
+---
+title: "Mapping Dominance: The Patriot's Dynasty"
+description: "Interactive map visualizing the Patriots' head-to-head records against every NFL team from 2001 to present day"
+date: 2019-12-19
+github: "https://github.com/EricSamsonCarto/Patriots-Dynasty-Map"
+thumbnail: "/images/projects/patriots-dynasty/patriots-thumbnail.jpg"
+---
+
+import { Image } from 'astro:assets';
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" />
+<link rel="stylesheet" href="/css/patriots-dynasty.css" />
+
+<div id="map" style="width: 100%; height: 450px; margin: auto; z-index: 2;"></div>
+<div style="text-align: center; font-style: italic; margin-top: 0.5rem; margin-bottom: 1rem;">
+  LAST UPDATED: 12/19/2019
+</div>
+
+I created this map to help visualize The Patriot Dynasty, which started in 2001 with their first super bowl win. It includes all regular and postseason games, but does not include pre-season. Clicking on a team's polygon will show the Patriots winning percentage and the point differential against the opposing team selected from the 2001 season to present day. There is also a "Highlights" link, which will open up a youtube video of my favorite game or moment between the associated team and The Patriots.
+
+Since 2001, The Patriots have played in 50% of all super bowls, winning 33% percent of all super bowls. Nine super bowl appearances, Six super bowl wins. They have completed 18 consecutive winning seasons (2001-2018), their total winning percentage over this time being 77%. They have a 50% or higher winning percentage against every team in the NFL, while remaining undefeated against four teams: Bears, Vikings, Falcons, and The Cowboys.
+
+<div id="chartdiv" style="width: 100%; height: 400px;"></div>
+<div style="text-align: center; font-style: italic; margin-top: 0.5rem; margin-bottom: 1rem;">
+  This chart will be updated the same time that the web map above is updated.
+</div>
+
+<Image src="/images/projects/patriots-dynasty/patriots-static-map-1.jpg" alt="Patriots Dynasty Static Map 1" width={1323} height={883} />
+<Image src="/images/projects/patriots-dynasty/patriots-static-map-2.jpg" alt="Patriots Dynasty Static Map 2" width={1200} height={800} />
+<div style="text-align: center; font-style: italic; margin-top: 0.5rem; margin-bottom: 1rem;">
+  The two maps above are static and therefore will not be updated. They were created on 10/20/2019.
+</div>
+
+## How I Made This Map
+
+I started by scraping the Patriots head to head statistics from ProFootballReference.com using R Studio. A guide on how to get that done can be found [here](https://stmorse.github.io/PFR-scrape.html). I gathered all of the tables and organized all of the data in excel. I then created a table that contained every NFL stadium and their individual coordinates. The statistics for each team were joined after the polygons were created.
+
+I used R Studio to create the polygons you see in the webmap. To do this, I used the coordinates of each NFL stadium and the center point of every county. Each team polygon is made up of all of the closest counties to each stadium.
+
+The first version of this map from the R analysis looked *slightly* different than what you see above. Some of the polygons, especially in the southwest, just didn't look great. I cleaned those up and realigned them in Pro. I completed the data join there, and calculated some extra fields and voila! I got a pretty decent looking layer. The raw geojson file can be found [here](https://gist.githubusercontent.com/EricSamsonCarto/999a382fa55c6df67435d3fe357e4f4f/raw/bc3caf99bcb85043ec5a5834d3bc8179b5f29065/FootballTeams3).
+
+Unfortunately, the R code and the steps that I made to get to this point are a bit chaotic, and I also didn't document them very well. I primarily used [this as a guide](https://www.dancullen.me/teaching/r-tutorials/working-with-spatial-data-in-r), but had to make some changes for my own purposes.
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.5/Chart.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
+<script src="https://www.amcharts.com/lib/4/core.js"></script>
+<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+<script src="/js/projects/patriots-dynasty.js"></script>
+<script src="/js/projects/patriots-chart.js"></script>

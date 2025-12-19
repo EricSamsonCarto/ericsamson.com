@@ -12,15 +12,17 @@
   - Add dynamic meta descriptions and Open Graph tags
 
 - Get list together of all the projects from the original site we want to port over
-  - Mapping the Patriots Dynasty (clean code)
+  - Streamlit Python website zillow datasets (clean code, no page needed just a link to github)
+  - Fill PDF with Pandas Dataframe (clean code, no page needed just a link to github)
   - Dispersed Camping Map (clean code) (also need to host application on this site somewhere)
-  - Streamlit Python website zillow datasets (clean code)
-  - Fill PDF with Pandas Dataframe (clean code)
 
 - Life
   - getting a map published
   - using a CGM (with line charts to show the CGM overtime)
   - favorite tech gear
+
+- Books
+  - Tuberculousis
 
 - New Tech Writing
   - Google Cloud ETL
