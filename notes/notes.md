@@ -22,6 +22,10 @@
 
 - New Tech Writing
   - Google Cloud ETL
+    - have most of finalized, need to create a github repo for personal use and upload
+    - need to clean up writing for personal blog instead of internal, use a sample dataset for example purposes
+
+- Actually Launch using netlify
 
 ## After Launch
 
@@ -33,3 +37,6 @@
 - Projects
   - tourism map, querying osm within a set radius, get all points marked tourism, clean it up and return it to the user
   - National Dispersed Camping Map
+
+- Books
+  - Wayward Pines Trilogy
