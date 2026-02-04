@@ -24,6 +24,7 @@
   - Google Cloud ETL
     - have most of finalized, need to create a github repo for personal use and upload
     - need to clean up writing for personal blog instead of internal, use a sample dataset for example purposes
+  - experience builder widget example
 
 - Actually Launch using netlify
 
@@ -40,3 +41,4 @@
 
 - Books
   - Wayward Pines Trilogy
+  - Outlive
