@@ -17,7 +17,6 @@
 
 - Life
   - getting a map published
-  - using a CGM (with line charts to show the CGM overtime)
   - favorite tech gear
 
 - New Tech Writing
@@ -25,6 +24,12 @@
     - have most of finalized, need to create a github repo for personal use and upload
     - need to clean up writing for personal blog instead of internal, use a sample dataset for example purposes
   - experience builder widget example
+
+- Books
+  - Happy City
+  - Fahrenheight 451
+  - Wayward Pines Trilogy
+
 
 - Actually Launch using netlify
 
@@ -42,3 +47,6 @@
 - Books
   - Wayward Pines Trilogy
   - Outlive
+
+- Life
+  - using a CGM (with line charts to show the CGM overtime)
