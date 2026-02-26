@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+  <html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Dispersed Camping in California Webmap</title>
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+<meta name="description" content="Dispersed Camping in California">
+<meta name="keywords" content="Dispersed Camping in California,Dispersed,Camping,California,Public,Lands,Dispersed,Camping,California,Dispersed,Camping,California,Dispersed,Camping,California,Dispersed,Camping,California,Dispersed,Camping,California,Dispersed,Camping,California,Dispersed,Camping,California,Dispersed Camping in California,Map,map,webmap,interactive,primitive, Map, Map,California Dispersed Camping Map,california dispersed camping map,map,map">
+  
+<meta name="description" content="Dispersed Camping in California Webmap" />
+<meta name="title" property="og:title" content="Dispersed Camping in California Webmap" />
+<meta property="og:type" content="Website" />
+<meta
+name="image" 
+property="og:image"
+content="https://assets.codepen.io/3352342/camping.JPG" 
+/>
+<meta 
+  name="description" 
+  property="og:description"
+  content="Dispersed Camping in California Webmap" 
+/>
+<meta name="author" content="Eric Samson"/>
+  
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BFXG88H4TZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-BFXG88H4TZ');
+</script>
+
+<!--Calcite Maps-->
+<link rel="stylesheet" href="import-css-packages/css/calcite-maps-esri-leaflet.min-v0.10.css">
+
+<!--Calcite Maps-->
+<link rel="stylesheet" href="calcite-maps-bootstrap.min-v0.10.css">
+<link rel="stylesheet" href="calcite-ui.css">
+
+<!--Styles needed-->
+<link rel="stylesheet" href="Dispersed_Style.css">
+
+<!--Leaflet Styles needed-->
+<link rel='stylesheet' href='https://unpkg.com/leaflet@1.0.3/dist/leaflet.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.9/leaflet.draw.css'>
+<link rel='stylesheet' href='https://unpkg.com/leaflet@1.5.1/dist/leaflet.css'>
+
+</head>
+
+<body class="calcite-maps calcite-nav-top calcite-layout-medium-title calcite-bg-dark">
+
+
+  <!-- Navbar -->
+  <nav class="navbar calcite-navbar navbar-fixed-top calcite-text-light calcite-bg-dark">
+     <!-- Menu -->
+    <div class="dropdown calcite-dropdown calcite-text-light calcite-bg-dark" role="presentation">
+      <a class="dropdown-toggle" role="menubutton" aria-haspopup="true" aria-expanded="false" tabindex="0">
+        <div class="calcite-dropdown-toggle">
+          <span class="sr-only">Toggle dropdown menu</span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </a>
+      <ul class="dropdown-menu">
+        
+        <li><a role="menuitem" href='about.html'> About</a></li>
+        <li><a role="menuitem" id='delete' href='#'> Clear Points</a></li>
+        <li><a role="menuitem" id='GJexport' href='#'> Export Points to Geojson</a></li>
+        <li><a role="menuitem" id='KMLexport' href='#'> Export Points to KML</a></li>
+        <li><a role="menuitem" onclick="showlegend()" href='#'> Legend</a></li>
+      </ul>
+    </div>
+
+    <!-- Title -->
+    <div class="calcite-title calcite-overflow-hidden">
+      <span class="calcite-title-main">Dispersed Camping In California</span>
+      <span class="calcite-title-divider hidden-xs"></span>
+      <span class="calcite-title-sub hidden-xs">Leaflet Application that assists in finding dispersed camping locations: <a href='https://www.buymeacoffee.com/EricSamson' target="_blank">Donate here</a> </span>
+      <span class="calcite-title-divider hidden-xs"></span>
+      <a href='https://www.ericsamson.com' target="_blank" class="coool-guy">ericsamson.com</a> </span> 
+    </div>
+
+  </nav>
+
+  <!-- POP-UP -->
+<div class="fade-in">
+
+<div id="popup" class="popupclass">
+  <img src="https://lh3.googleusercontent.com/nvvKx_biUDnAuIectfZSCOOymbf6aLPqfT9wEGuuhN1xnX7ojOZpUoTcYKq8-EEZgWDFRMeXwo4RqyA3nI9a_2v0cy1BZwItl0qeCDsoARe2SI_rtzvQbRJgTkqzkTknATC2tduSlA=w2400" width="200">
+    <h3>If you use this map, please practice <a href="https://lnt.org/" target="_blank">LNT!</a></h3>
+      <p>Try to leave camp spots better than you found them. Pack out all of your trash and belongings.
+            <br>
+            <br>
+            Due to the wildfire threat in California, it's best not to have a fire when dispersed camping. You are required by law to obtain a fire permit from a local forest ranger station or 
+              <a href="http://www.preventwildfireca.org/Campfire-Permit/" target="_blank">
+                online.
+              </a>
+          </p>
+    
+    <div class='agree' onclick="hidepopup()">
+      <a href="#">I AGREE!</a>
+    </div>
+</div>
+  </div>
+
+  <!-- Map Container  -->
+  <div id="LegendDiv" onclick="hidelegend()">
+    <img src="https://lh3.googleusercontent.com/D1zhpwU-bQKL1IHWCThGQHRSEMYW4Bdb2eIswDIU53vQQti-IXgKjDE5eBlA9BBUidaHB3c4j20zZ5SByMGR-MipOmSdffE5EsKwowKPVRgriPbTVi6Y7a6hKLtV6yVviDSa7UlXvw=w2400" class='Legend'>
+  </div>
+
+  <div class="calcite-map">  
+    <div id="map" class="calcite-map-absolute"></div> 
+  </div>
+
+<script type="text/javascript">
+    function showlegend() {
+      document.getElementById('LegendDiv').style.visibility= document.getElementById('LegendDiv').style.visibility == 'visible'? 'hidden' : 'visible';
+    }
+
+    function hidelegend() {
+      document.getElementById('LegendDiv').style.visibility = 'hidden';
+    }
+
+    function hidepopup() {
+      document.getElementById('popup').style.visibility = 'hidden';
+      document.getElementById('map').style.visibility = 'visible';
+    }
+
+</script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://unpkg.com/leaflet@1.0.3/dist/leaflet.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.9/leaflet.draw.js'></script>
+<script src="https://xguaita.github.io/Leaflet.MapCenterCoord/dist/L.Control.MapCenterCoord.min.js"></script>
+<script src='https://unpkg.com/esri-leaflet@2.3.0/dist/esri-leaflet.js'></script>
+<script src='https://code.jquery.com/jquery-latest.min.js'></script>
+
+<script src="calcitemaps-v0.10.js"></script>
+<script src="ToKML.js"></script>
+<script src="Disp_Leaflet.js"></script>
+</body>
+
+</html>

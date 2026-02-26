@@ -1,0 +1,268 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #333;
+}
+
+.calcite-map-absolute {
+  margin-top: 45px !important;
+}
+
+.calcite-navbar-search {
+  margin-top: 0;
+  margin-right: 5px;
+  padding: 5px 0;
+}
+
+.calcite-nav-bottom .panel-body .geocoder-control-suggestions.leaflet-bar {
+  top: 25px;
+  bottom: auto;
+}
+
+.calcite-maps .esri-truncated-attribution {
+  max-width: 100% !important;
+  width: 100%;
+  background-color: transparent !important;
+}
+
+.leaflet-popup-content-wrapper{
+  border-radius: 10px !important;
+  padding: .3 !important;
+  background-color: rgba(82, 82, 82, 0.856) !important;
+  color: rgba(255, 255, 255, 0.719) !important;
+  font-weight: bold;
+}
+
+.leaflet-popup-content-wrapper a{
+  color: rgba(108, 196, 124, 0.897) !important;
+  font-weight: bold;
+}
+
+.leaflet-popup-tip{
+  background-color: rgba(82, 82, 82, 0.897) !important;
+}
+
+.leaflet-control{
+  background-color:rgba(255,255,255,.60);
+  box-shadow:0 0 5px #bbb;
+  padding:0 5px;
+  margin-left:.5rem;
+  color:#333;
+  font: 1.8rem;
+  border-radius: 25px;
+}
+
+.leaflet-container .leaflet-control-mapcentercoord{
+  background-color:rgba(255, 255, 255, 0.747);
+  box-shadow:0 0 5px #bbb;
+  padding:0 5px;
+  margin-left:.5rem;
+  color:#333;
+  font: 1.8rem;
+  border-radius: 15px;
+}
+
+.leaflet-control-mapcentercoord-icon{background:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23333"><circle cx="12" cy="12" r="2"/><path d="M12 1v6m0 10v6M1 12h6m10 0h6"/></svg>') 50% 50% no-repeat;margin:-18px 0 0 -18px;width:36px;height:36px;left:50%;top:50%;content:'';display:block;position:absolute;z-index:99}
+
+.leaflet-draw.leaflet-control{
+  background:none !important;
+  
+  padding: 0 !important;
+}
+
+.leaflet-draw-draw-marker .leaflet-draw-toolbar-button-enabled{
+	background-image: url('https://image.flaticon.com/icons/svg/452/452804.svg') !important;
+}
+
+.leaflet-draw-draw-marker{
+  background-image: url('https://assets.codepen.io/3352342/Custom_Campsite.svg') !important;
+  background-position: center !important; 
+  width: 42px !important;
+}
+
+.leaflet-draw-actions .leaflet-draw-actions-top .leaflet-draw-actions-bottom{
+  display: none !important;
+}
+
+ul li a {
+  margin-right: 15 !important;
+  background-color: rgba(53, 53, 53, 0.705) !important;
+  color: #ffffff !important;
+  height: 30 !important;
+  text-align: center !important;
+  padding-top: 1.5px !important;
+}
+
+a {
+  color: #96858F;
+  text-decoration: none;
+  background-color: transparent;
+  -webkit-text-decoration-skip: objects;
+}
+
+a:hover {
+  color: #b7adb2;
+  text-decoration: none;
+}
+
+span a {
+  color: rgb(255, 255, 255) !important;
+  font-weight: bold;
+}
+
+span a:hover {
+  color: #289eff !important;
+}
+
+.popupclass {
+  z-index: 99;
+  margin-bottom: 1rem;
+  width: 380px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 30px;
+  text-decoration: None;
+  text-align: center;
+  opacity: 98%;
+  box-shadow: 4px 14px 44px 29px rgba(0,0,0,0.63);
+  position: absolute;
+  margin-top: 80px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+}
+ 
+.fade-in {
+  animation: fadeIn ease 4s;
+  -webkit-animation: fadeIn ease 4s;
+  -moz-animation: fadeIn ease 4s;
+  -o-animation: fadeIn ease 4s;
+  -ms-animation: fadeIn ease 4s;
+}
+@keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-moz-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-webkit-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-o-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-ms-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@media (max-width: 430px) {
+  .popupclass {
+    margin-top: 60px;
+    }
+}
+
+@media (max-width: 400px) {
+  .popupclass {
+    width: 280px;   
+  }
+}
+
+@media (max-width: 330px) {
+  .calcite-title-main {
+    font-size: 1.7rem !important; 
+    }
+}
+
+.popupclass h3 {
+  margin-top: 20px;
+  font-size: 1.8rem;
+}
+
+.popupclass p {
+  font-size: 1.4rem;
+}
+
+@media (max-width: 430px) {
+  .popupclass p {
+    font-size: 1.2rem;
+    }
+}
+
+.popupclass a {
+  text-decoration: none;
+  color: #206020;
+  font-weight: bold;
+}
+
+.agree a {
+  background-color: gray;
+  padding: 5px 10px;
+  color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+  width: 100px;
+  margin: 0 auto;
+}
+
+#popup {
+  visibility: visible;
+  z-index: 99;
+  
+}
+
+.Legend {
+  width: 450px;
+  padding-left: .8rem;
+  padding-bottom: 2rem;
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  z-index: 99;
+  opacity: 78%;
+}
+
+@media (max-width: 450px) {
+  .Legend {
+    width: 320px;   
+  }
+}
+
+@media (max-width: 400px) {
+  .Legend {
+    width: 280px;   
+  }
+}
+
+@media (max-width: 340px) {
+  .Legend {
+    width: 260px;   
+  }
+}
+
+#LegendDiv{
+  visibility:hidden;
+}
+
+.calcite-map-absolute{
+  z-index: 1 !important;
+}
+
+#map {
+  visibility:hidden;
+}
+
+a .coool-guy {
+  color:#289eff
+}
+

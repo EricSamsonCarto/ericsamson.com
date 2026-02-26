@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>Dispersed Camping in California</title>
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+<meta name="description" content="Dispersed Camping in California">
+<meta name="keywords" content="Dispersed Camping in California,Dispersed,Camping,California,Public,Lands,Dispersed,Camping,California,Dispersed,Camping,California,Dispersed,Camping,California,Dispersed,Camping,California,Dispersed,Camping,California,Dispersed,Camping,California,Dispersed,Camping,California,Dispersed Camping in California,Map,map,webmap,interactive,primitive, Map, Map,California Dispersed Camping Map,california dispersed camping map,map,map">
+  
+  
+    <!-- REFRESH PAGE -->
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="-1">
+  
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BFXG88H4TZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-BFXG88H4TZ');
+</script>
+
+<!-- STYLES NEEDED: -->
+<link rel="stylesheet" href="https://use.typekit.net/izp0agl.css">
+<link rel='stylesheet' href='about_css.css'>
+<!-- ADDITIONAL: -->
+  
+<link rel='stylesheet' href='https://unpkg.com/leaflet@1.0.3/dist/leaflet.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.9/leaflet.draw.css'>
+<link rel='stylesheet' href='https://unpkg.com/leaflet@1.5.1/dist/leaflet.css'>
+<link rel='stylesheet' href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css'>
+<link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@2.3.2/dist/esri-leaflet-geocoder.css"
+    integrity="sha512-IM3Hs+feyi40yZhDH6kV8vQMg4Fh20s9OzInIIAc4nx7aMYMfo+IenRUekoYsHZqGkREUgx0VvlEsgm7nCDW9g=="
+    crossorigin="">
+  
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" />
+
+</head>
+  
+<!-- START OF BODY -->
+<body>
+  
+<!-- HEADER FIRST -->
+<header class="navigation">
+  <div class="nav-container">
+    <div class="brand">
+      <a href="dispersed-camping-app.html" style="text-decoration: none">Back to the map</a>
+    </div>
+  </div>
+</header>
+
+<!-- START OF ARTICLE -->
+<div class="container">
+<div class="article">
+
+<br>
+<!-- TITLE SECTION -->
+<div class="coffee">
+  <style>
+    .bmc-button img {
+      height: 34px !important;
+      width: 35px !important;
+      margin-bottom: 1px !important;
+      box-shadow: none !important;
+      border: none !important;
+      vertical-align: middle !important;
+    }
+    .bmc-button {
+      padding: 7px 15px 7px 10px !important;
+      line-height: 35px !important;
+      height: 51px !important;
+      text-decoration: none !important;
+      display: inline-flex !important;
+      color: #ffffff !important;
+      background-color: #4c4c4c !important;
+      border-radius: 5px !important;
+      border: 1px solid transparent !important;
+      font-size: 15px !important;
+      letter-spacing: 0.6px !important;
+      box-shadow: 0px 1px 2px rgba(190, 190, 190, 0.5) !important;
+      -webkit-box-shadow: 0px 1px 2px 2px rgba(190, 190, 190, 0.5) !important;
+      margin: 0 auto !important;
+      font-family: 'Montserrat', 'sans-serif', cursive !important;
+      -webkit-box-sizing: border-box !important;
+      box-sizing: border-box !important;
+    }
+    .bmc-button:hover, .bmc-button:active, .bmc-button:focus {
+      -webkit-box-shadow: 0px 1px 2px 2px rgba(190, 190, 190, 0.5) !important;
+      text-decoration: none !important;
+      box-shadow: 0px 1px 2px 2px rgba(190, 190, 190, 0.5) !important;
+      opacity: 0.85 !important;
+      color: #ffffff !important;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet">
+  <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/EricSamson">
+    <img src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg" alt="Buy me a coffee">
+    <span style="margin-left:5px;font-size:15px !important;">Buy me a coffee</span>
+  </a>
+</div>
+<div class="coffee">
+  <a class="bmc-button" target="_blank" href="mailto:ericsamsonwx@gmail.com">
+    <img src="https://assets.codepen.io/3352342/open-email.svg" alt="Email Me">
+    <span style="margin-left:5px;font-size:15px !important;">&nbsp; Email Me</span>
+  </a>
+</div>
+  
+  <hr>
+  <div class="subtitle"><em><b>Last Updated: 11.30.2020</em></b></div>
+
+<!-- PARAGRAPHS -->
+  <p>
+   Dispersed camping means camping outside of a designated campground. You are allowed to disperse camp in most national forests and on BLM land, with some exceptions. The areas where you are allowed to camp are indicated by the green polygons for national forests, and by yellow polygons for BLM land. When one of the green polygons is clicked, a popup will appear that includes a link to the National Forest's camping page.</p>
+<p>
+You are not allowed to camp close to major highways or roadways. It is easiest to locate camp spots near or off of Forest Service roads. These roads will appear on the map at a zoom level of 14. Paved roads will appear as purple lines, and unpaved as yellow lines. A private land layer will also appear at the zoom level of 12, but not all private land is included on this layer. Make sure to double check that the location you have found is not on private property.
+</p>
+  
+<p>The GIF below goes through an example of finding dispersed camping locations:</p>
+    
+<!-- GIF -->
+<div class="smallerimage">
+<img src="https://lh3.googleusercontent.com/izJexQH7PAvaRmh3lXzoWEW8BdzX6GbT8_4blDWwOeNuprNM5vz5392JRq_7k-pDkFxTfGuxjip_0qo9mbjZrPSxOw2NKJLZPUF5gIiZtM90R5qYqUWSnn_nbUVXwhSBqN0guP6w_w=w2400">
+  </div>
+  <p>
+There are official campgrounds displayed on the map as well (see legend in drop down on map). These campgrounds can be “first come first serve” or reservation based, depending on the site. Clicking on a camp icon will open a pop-up, from which you can visit the campground's forest service website to find additional information. I have also added some trailheads:
+</p>
+  
+<!-- IMAGE 1 -->
+  <div class="smallerimage">
+  <img src="https://lh3.googleusercontent.com/y9YCFXzVn2pe-7KfC8fnxRZtZ0ZtUz9MSFYBzjrmjuM0cqO7pUYMJFl0NEjZrtmLNWpwUcZBvLjyOZEXkWmMiImxS7Syg0Bh35XyszKf_u21inKuC_Kfd9MP4QaSkwMOpjnzpUrBtw=w2400">
+  </div>
+  
+  <p>
+The layers button can be used to switch between the satellite basemap and the topographic basemap. Some layers can also be turned on and off. When zoomed in and exploring, the green "DispersedCampLand" layer will turn off automatically at zoom level 13.
+  </p>
+<p>
+The marker button allows users to place a point where they find a potential camping spot. When clicking on a marker after it's placed, the popup will give several clickable link options. The first link simply searches the coordinates on google, which can then be opened in google maps. If the Lat,Lon is on a major road, Google Street View can be launched via the second link. If you want to know the weather at the marker location, a National Weather Service NOAA link is included. The markers can then be exported to a geoJSON or a KML file:
+</p>
+  
+  <!-- IMAGE 1 -->
+  <div class="smallerimage">
+  <img src="https://lh3.googleusercontent.com/sbiHTw_wKLIKA99KE5Hdsq7cO147omevEQXTXhNRiSA6VHYn4iUzvCSzVTCaaBNhjpzrVkyyQbOTvQjMsM9h8elBK7iByfkVKKt84LG4ksVpBXZP1_TfGb2PCTlHIeJbBgPLX3OsgA=w2400">
+  </div>
+  
+  <p>
+When exporting to KML, the points can be added to Google Maps by first visiting <a href="https://www.google.com/maps/d/">My Maps</a>. Click "CREATE A NEW MAP" and follow the GIF below. The new custom map can be opened on the mobile Google Maps app by going to "Your places" -> scrolling the top bar to the right -> "Maps." There you will find all of your custom maps.
+</p>
+  
+<p>
+The GIF below quickly shows how to add the Dispersed Campsite points to a custom Google Map:
+</p>
+  
+<div class="smallerimage">
+<img src="https://lh3.googleusercontent.com/kEAgbVSEHGn3USXK8o1dSa9StWe3VCkQYysGqc19CPMPlSUfiuZ-4wS3FNcfz6dAHl4CVoOlC8I7En2YFqfkx4jDU6s7EE4hjf-SJLMxPFrpEE9wcu6YRcF6xMJVIPtEWPiNyFewdw=w2400">
+  </div>
+  
+  <br>
+  <div class="attribute"><em>The Camping Icon's used in the map were made by Freepik from flaticon.com
+    <br>The above map combines layers and information provided to the public by the <br><a href="https://www.fs.fed.us/" target="_blank">US Forest Service</a>
+    <br> The above map utilizes the <a href="https://esri.github.io/esri-leaflet/">ESRI leaflet API</a>
+    <br> And uses map tiles from <a href="https://www.esri.com/en-us/home">ESRI</a>
+    
+    <br>
+    <br> View the code on my <a href="https://github.com/EricSamsonCarto/Dispersed-Camping-in-CA-Leaflet">Github</a>
+
+    <br>
+    <br> Visit my <a href="https://www.ericsamson.com" target="_blank">portfolio website</a>
+    </em>
+    <br>
+  </div>
+<!-- FINISHING LINE -->     
+<hr>  
+</div>
+</div>
+  
+<!-- END OF BODY --> 
+</body>
+
+
+</html>
