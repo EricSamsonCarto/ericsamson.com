@@ -11,9 +11,8 @@
 - website cleanup
   - Add dynamic meta descriptions and Open Graph tags
 
-- Get list together of all the projects from the original site we want to port over
+- Projects
   - disperesed camping images and gifs need to be optimized and replaces
-  - Dispersed Camping Map (clean code) (also need to host application on this site somewhere)
 
 - Life
   - getting a map published
