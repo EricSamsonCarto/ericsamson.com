@@ -3,7 +3,7 @@ title: "Auto-Fill PDFs from CSVs"
 description: "Using eel, a python package, to create a front end for filling in PDFs using a CSV as input"
 date: 2021-10-15
 github: "https://github.com/EricSamsonCarto/Autofill-PDF-FromCSV"
-thumbnail: "/images/projects/autofill-pdf/UI.jpg"
+thumbnail: "/images/projects/autofill-pdf/fill-pdf.jpg"
 ---
 
 Automatically filling in form fields within a PDF is a massive pain, as anyone who has ever tried to automate this process knows. Working with adobe's API to access a documents form fields is a nightmare. They may do this on purpose so that you buy some extension or add on, I am assuming.
