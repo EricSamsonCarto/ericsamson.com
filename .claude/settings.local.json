@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(npm run dev:*)",
-      "Bash(dir:*)"
+      "Bash(dir:*)",
+      "Bash(grep -E \"\\\\.md$|^d\")"
     ],
     "deny": [],
     "ask": []
