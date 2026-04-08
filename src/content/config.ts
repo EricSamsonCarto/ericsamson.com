@@ -30,7 +30,8 @@ const techCollection = defineCollection({
     title: z.string(),
     description: z.string(),
     date: z.date(),
-    thumbnail: z.string().optional()
+    thumbnail: z.string().optional(),
+    github: z.string().url().optional(),
   }),
 });
 

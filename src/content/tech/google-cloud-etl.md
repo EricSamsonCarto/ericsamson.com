@@ -3,6 +3,7 @@ title: "Automating a Recurring Data ETL Pipeline Entirely Within GCP"
 description: "Creating a large scale google cloud ETL pipeline that transfers data from a GCP bucket into a posgreSQL database."
 date: 2026-03-14
 thumbnail: "/public/images/writing/tech/gcp_pipeline.jpg"
+github: "https://github.com/EricSamsonCarto/GCP-Data-ETL"
 ---
 
 A vendor delivers data to us via a Google Cloud Storage bucket once a month. The file is large, around 180 gbs, and the delivery date isn't fixed. It shows up sometime around the same week each month, but there's no exact timestamp we can count on. Rather than checking manually or building a fragile polling script, we automated the entire ETL process within GCP using four services:
@@ -12,11 +13,11 @@ A vendor delivers data to us via a Google Cloud Storage bucket once a month. The
 - **Compute Engine** — an ephemeral VM that runs the actual import
 - **Artifact Registry** — hosts the Docker image the VM pulls at startup
 
-Here's the flow: Cloud Scheduler fires every night and triggers the Cloud Function. The Cloud Function checks the GCS bucket. If there's no file, it quits. Nothing happens, no cost. If there *is* a file, it spins up a new VM configured to run our Docker image automatically on startup. That container streams the data file directly into our PostgreSQL database, builds indexes, cleans up after itself, and then deletes the VM. If something goes wrong, the VM still deletes itself, that way we're not paying for a broken VM to sit idle.
+Here's the flow: Cloud Scheduler fires every night and triggers the Cloud Function. The Cloud Function checks the GCS bucket. If there's no file, it quits. Nothing happens, no cost. If there *is* a file, it spins up a new VM configured to run our Docker image automatically on startup. That container streams the data file directly into our PostgreSQL database, builds indexes, cleans up after itself, and then deletes the VM. If something goes wrong, the VM still deletes itself, that way we're not paying for a broken VM to sit and chill.
 
-We also get GCP log-based alerts when the import succeeds, when it fails, and when the VM deletes itself, so we always know what happened without having to go check.
+We can also easily set up GCP log-based alerts when the import succeeds, when it fails, and when the VM deletes itself, so we always know what happened without having to go check. I have the GCP app on my phone, so even when I am on the move I can confirm that the transfer completed succesfully.
 
-The whole thing costs around $5–6/month for a monthly import. Pretty cheap for a fully automated pipeline handling a large dataset. Certainly cheaper than me doing it manually.
+The whole thing costs around $5–6/month for a monthly import. Pretty cheap for a fully automated pipeline handling a large dataset. Certainly cheaper than me doing it manually each month.
 
 ---
 
@@ -69,10 +70,10 @@ The repo has two `config.py` files — one for the Cloud Function and one for th
 
 ```python
 project_id = 'your-project-id'
-vm_names_to_check = ['your-vm-name']  # any running VM matching this blocks a new run
+vm_names_to_check = ['your-vm-name']  # any running VM matching these names blocks a new run
 bucket_name = 'your-data-bucket'
 zip_file_ends_with = '.sql.gz'
-instance_name_str = 'data-etl'        # timestamp appended automatically
+instance_name_str = 'data-etl'
 zone = 'us-central1-b'
 container_image = 'us-central1-docker.pkg.dev/your-project/your-repo/your-image:latest'
 container_name = 'data-etl'
@@ -266,7 +267,7 @@ textPayload=~"deleting vm"
 
 In the query results bar, click **Actions → Create Log Alert** to wire each one up to an email notification channel. Now you'll know immediately if something went wrong or right.
 
-> **Note:** These queries use `textPayload` because the container uses Python's standard `logging` module. After your first real run, open Logs Explorer, find a log entry from the VM, and click into it to confirm the field structure. It's always best to sort of set these alerts up manually based on how you are running it personally, I always just run it once, look into the logs, and then create alerts based on the results I see.
+> **Note:** These queries use `textPayload` because the container uses Python's standard `logging` module. After your first real run, open Logs Explorer, find a log entry from the VM, and click into it to confirm the field structure. It's my opinion that it's usually better to set up these alerts manually based on how you are running it. I always just run it once, look into the logs, and then create alerts based on the results I see. Choppy but works.
 
 ---
 
@@ -289,4 +290,4 @@ Here's the whole thing from the front to the back:
 
 ---
 
-The full source is available on GitHub: [GCP-Data-ETL]()
+The full source is available on GitHub: [GCP-Data-ETL](https://github.com/EricSamsonCarto/GCP-Data-ETL)

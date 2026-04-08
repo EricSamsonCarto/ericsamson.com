@@ -29,8 +29,8 @@ const thumbnailSrc = thumbnail?.replace('/public', '') || '';
           src={thumbnailSrc}
           alt={title}
           width={400}
-          height={300}
-          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+          height={400}
+          class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
           loading={eager ? "eager" : "lazy"}
         />
         <!-- Gradient overlay -->

@@ -26,6 +26,16 @@ const latestLife = getLatest(allLife, 3);
 		<hr class="my-3 border-gray-300 w-3/4 mx-auto">
 
 		<ContentPreviewGrid
+			title="Life"
+			items={latestLife}
+			collection="life"
+			viewMoreUrl="/writing/life"
+			viewMoreText="more life"
+		/>
+
+		<hr class="my-3 border-gray-300 w-3/4 mx-auto">
+
+		<ContentPreviewGrid
 			title="Books"
 			items={latestBooks}
 			collection="books"
@@ -33,14 +43,5 @@ const latestLife = getLatest(allLife, 3);
 			viewMoreText="more books"
 		/>
 
-		<hr class="my-3 border-gray-300 w-3/4 mx-auto">
-
-		<ContentPreviewGrid
-			title="Life"
-			items={latestLife}
-			collection="life"
-			viewMoreUrl="/writing/life"
-			viewMoreText="more life"
-		/>
 	</div>
 </PageLayout>
