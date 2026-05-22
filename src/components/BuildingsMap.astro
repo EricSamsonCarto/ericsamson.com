@@ -1,0 +1,217 @@
+---
+/**
+ * BuildingsMap Component
+ * A self-contained MapLibre map that reads a PMTiles archive of building
+ * footprints directly from the public folder (no tile server required).
+ *
+ * @param pmtilesUrl   - Path to the .pmtiles file (defaults to the Colorado buildings example)
+ * @param sourceLayer  - The vector source-layer name inside the archive
+ * @param center       - [lng, lat] starting center (defaults to Denver)
+ * @param zoom         - Starting zoom
+ * @param height       - Map height in pixels
+ * @param maxZoom      - Highest zoom the archive contains (tiles overzoom past this)
+ * @param id           - Optional element id
+ */
+
+import 'maplibre-gl/dist/maplibre-gl.css';
+
+interface Props {
+  pmtilesUrl?: string;
+  sourceLayer?: string;
+  center?: [number, number];
+  zoom?: number;
+  height?: number;
+  maxZoom?: number;
+  id?: string;
+}
+
+const {
+  pmtilesUrl = '/colorado_buildings_pmtiles/co_microsoft_buildings.pmtiles',
+  sourceLayer = 'co_microsoft_buildings_2',
+  center = [-104.9903, 39.7392],
+  zoom = 9,
+  height = 480,
+  maxZoom = 5,
+  id = `buildings-map-${Math.random().toString(36).slice(2, 11)}`,
+} = Astro.props;
+
+const config = { pmtilesUrl, sourceLayer, center, zoom, maxZoom };
+---
+
+<div
+  id={id}
+  class="buildings-map"
+  data-buildings-map
+  data-config={JSON.stringify(config)}
+  style={`height: ${height}px;`}
+  role="application"
+  aria-label="Map of building footprints served from a PMTiles file"
+>
+</div>
+
+<style>
+  .buildings-map {
+    width: 100%;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  }
+
+  /* MapLibre injects its own popup markup; style it to match the dark map */
+  :global(.maplibregl-popup-content) {
+    background: #1a1a1a;
+    color: #f3f4f6;
+    border-radius: 0.5rem;
+    padding: 0.6rem 0.8rem;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.4);
+  }
+  :global(.maplibregl-popup-anchor-top .maplibregl-popup-tip),
+  :global(.maplibregl-popup-anchor-top-left .maplibregl-popup-tip),
+  :global(.maplibregl-popup-anchor-top-right .maplibregl-popup-tip) {
+    border-bottom-color: #1a1a1a;
+  }
+  :global(.maplibregl-popup-anchor-bottom .maplibregl-popup-tip),
+  :global(.maplibregl-popup-anchor-bottom-left .maplibregl-popup-tip),
+  :global(.maplibregl-popup-anchor-bottom-right .maplibregl-popup-tip) {
+    border-top-color: #1a1a1a;
+  }
+  :global(.maplibregl-popup-anchor-left .maplibregl-popup-tip) {
+    border-right-color: #1a1a1a;
+  }
+  :global(.maplibregl-popup-anchor-right .maplibregl-popup-tip) {
+    border-left-color: #1a1a1a;
+  }
+  :global(.maplibregl-popup-close-button) {
+    color: #9ca3af;
+    font-size: 1.1rem;
+    padding: 0 0.35rem;
+  }
+  :global(.bm-popup-title) {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 0.4rem;
+    color: #1e90ff;
+  }
+  :global(.bm-popup-row) {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+  :global(.bm-popup-row span:first-child) {
+    color: #9ca3af;
+  }
+</style>
+
+<script>
+  import maplibregl from 'maplibre-gl';
+  import { Protocol } from 'pmtiles';
+
+  // Register the pmtiles:// protocol once per page, even with multiple maps.
+  const w = window as unknown as { __pmtilesRegistered?: boolean };
+  if (!w.__pmtilesRegistered) {
+    const protocol = new Protocol();
+    maplibregl.addProtocol('pmtiles', protocol.tile);
+    w.__pmtilesRegistered = true;
+  }
+
+  interface MapConfig {
+    pmtilesUrl: string;
+    sourceLayer: string;
+    center: [number, number];
+    zoom: number;
+    maxZoom: number;
+  }
+
+  function initBuildingsMaps() {
+    const els = document.querySelectorAll<HTMLElement>('[data-buildings-map]');
+    els.forEach((el) => {
+      // Avoid double-initializing on view transitions.
+      if (el.dataset.initialized === 'true') return;
+      el.dataset.initialized = 'true';
+
+      const cfg = JSON.parse(el.dataset.config!) as MapConfig;
+
+      const map = new maplibregl.Map({
+        container: el,
+        center: cfg.center,
+        zoom: cfg.zoom,
+        // OpenFreeMap serves complete vector styles for free, no API key.
+        style: 'https://tiles.openfreemap.org/styles/dark',
+        maxZoom: 18,
+      });
+
+      map.addControl(new maplibregl.NavigationControl(), 'top-right');
+
+      // Add the PMTiles building footprints once the base style has loaded.
+      map.on('load', () => {
+        map.addSource('buildings', {
+          type: 'vector',
+          url: `pmtiles://${cfg.pmtilesUrl}`,
+        });
+
+        map.addLayer({
+          id: 'buildings-fill',
+          type: 'fill',
+          source: 'buildings',
+          'source-layer': cfg.sourceLayer,
+          paint: {
+            'fill-color': '#1e90ff',
+            'fill-opacity': 0.7,
+          },
+        });
+
+        // Crisp white outlines on top of the fill.
+        map.addLayer({
+          id: 'buildings-outline',
+          type: 'line',
+          source: 'buildings',
+          'source-layer': cfg.sourceLayer,
+          paint: {
+            'line-color': '#ffffff',
+            'line-width': 0.8,
+          },
+        });
+      });
+
+      // Click a footprint to inspect its tile attributes.
+      map.on('click', 'buildings-fill', (e) => {
+        const feature = e.features?.[0];
+        if (!feature) return;
+
+        const props = feature.properties ?? {};
+        const release = props.release ?? '—';
+        const lng = e.lngLat.lng.toFixed(5);
+        const lat = e.lngLat.lat.toFixed(5);
+
+        const html = `
+          <div class="bm-popup">
+            <div class="bm-popup-title">Building footprint</div>
+            <div class="bm-popup-row"><span>Release</span><span>${release}</span></div>
+            <div class="bm-popup-row"><span>Lng, Lat</span><span>${lng}, ${lat}</span></div>
+          </div>`;
+
+        new maplibregl.Popup({ closeButton: true })
+          .setLngLat(e.lngLat)
+          .setHTML(html)
+          .addTo(map);
+      });
+
+      map.on('mouseenter', 'buildings-fill', () => {
+        map.getCanvas().style.cursor = 'pointer';
+      });
+      map.on('mouseleave', 'buildings-fill', () => {
+        map.getCanvas().style.cursor = '';
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initBuildingsMaps);
+  } else {
+    initBuildingsMaps();
+  }
+
+  document.addEventListener('astro:page-load', initBuildingsMaps);
+</script>

@@ -3,7 +3,14 @@
     "allow": [
       "Bash(npm run dev:*)",
       "Bash(dir:*)",
-      "Bash(grep -E \"\\\\.md$|^d\")"
+      "Bash(grep -E \"\\\\.md$|^d\")",
+      "Bash(ls -la public/*.pmtiles)",
+      "Bash(ls -la public/co_microsoft_buildings*)",
+      "Bash(find public *)",
+      "Bash(ls src/components/)",
+      "Bash(find src *)",
+      "PowerShell(npm install maplibre-gl pmtiles)",
+      "Bash(node -e ' *)"
     ],
     "deny": [],
     "ask": []
