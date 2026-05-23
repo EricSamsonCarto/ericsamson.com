@@ -9,7 +9,7 @@ import BuildingsMap from '../../components/BuildingsMap.astro';
 
 [Protomaps Tiles](https://protomaps.com/) aren't new, so I'm late to the game. For most of my career I've worked in organizations that lean heavily on ESRI, and I never had a professional reason to dig into open-source vector tiles.
 
-Then I had a free weekend to play with MapLibre on a side project, and I finally put PMTiles into practice. Using them is even better than the demos, examples, and breathless LinkedIn posts made them seem.
+Then I had a free weekend to play with MapLibre on a side project, and I finally put PMTiles into practice. Using them is even better than all of the breathless LinkedIn posts made them seem.
 
 PMTiles is a single-file archive format for tiled data. You can host one on object storage like S3 or a GCP bucket and read it directly in the browser. Think of any tiled data you've worked with before, but far lighter. You can pack multiple layers into a single PMTiles file, though so far I've only tested one dataset at a time. Below is a map of every [Microsoft building footprint](https://github.com/microsoft/USBuildingFootprints) for the state of Colorado, all 2.1 million of them:
 
@@ -89,9 +89,9 @@ I used 5 meters for the simplification and removed any holes smaller than 20 squ
 
 Run the following and let GeoPandas do its magic. Since we only need to see the buildings when we are close up to the map, I set the min zoom and max zoom values manually.
 
-This takes a long time to run, so be patient; for me it took about 25 minutes. Under the hood, GeoPandas is secretly converting to MBTiles first, then converting that to PMTiles.
+This takes a long time to run, so be patient; for me it took about 18 minutes. Under the hood, GeoPandas is secretly converting to MBTiles first, then converting that to PMTiles.
 
-You should end up with a file around 57 MB. The max zoom is the biggest lever on file size: every level you add stores all 2.1 million buildings at finer detail, so capping it at 12 keeps the file small while still looking great. Zoom in past that and MapLibre simply overzooms the level 12 tiles, so the buildings stay visible, just a touch softer.
+You should end up with a file around 57 MB. The max zoom is the biggest difference maker on the file size. Imagine every level you add storing all 2.1 million buildings at finer detail. Capping it at 12 keeps the file small while still looking decent.
 
 ```python
 output_layer_name = 'co_microsoft_buildings'
