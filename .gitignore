@@ -27,6 +27,3 @@ pnpm-debug.log*
 
 # ai settings
 .claude/
-
-# large pmtiles archives (exceed GitHub's 100 MB limit; host on a bucket instead)
-*.pmtiles

@@ -15,7 +15,7 @@ PMTiles is a single-file archive format for tiled data. You can host one on obje
 
 <BuildingsMap />
 
-As a GeoJSON, this file was 619 MB. The PMTiles version is 111 MB, but here's the trick: you never download the whole thing. PMTiles is read with HTTP range requests, so the browser only fetches the handful of tiles in your current view, a few hundred KB at a time. The first time I packaged this dataset I capped it at a low zoom and the entire file came out to just 90 KB. That's crazy. And you get excellent visualization performance to boot.
+As a GeoJSON, this file was 619 MB. The PMTiles version is 57 MB, but here's the trick: you never download the whole thing. PMTiles is read with HTTP range requests, so the browser only fetches the handful of tiles in your current view, a few hundred KB at a time. The first time I packaged this dataset I capped it at a low zoom and the entire file came out to just 90 KB. That's crazy. And you get excellent visualization performance to boot.
 
 The drawback, of course, is that you don't get clean access to the underlying geometries. If you need to do advanced geometry analysis in your front-end GIS, you'll still want a backend database to query and retrieve those geometries (for example, when a user wants to grab a few parcels, copy the geometries, and save them into a different layer).
 
@@ -91,7 +91,7 @@ Run the following and let GeoPandas do its magic. Since we only need to see the 
 
 This takes a long time to run, so be patient; for me it took about 25 minutes. Under the hood, GeoPandas is secretly converting to MBTiles first, then converting that to PMTiles.
 
-You should end up with a file around 111 MB.
+You should end up with a file around 57 MB. The max zoom is the biggest lever on file size: every level you add stores all 2.1 million buildings at finer detail, so capping it at 12 keeps the file small while still looking great. Zoom in past that and MapLibre simply overzooms the level 12 tiles, so the buildings stay visible, just a touch softer.
 
 ```python
 output_layer_name = 'co_microsoft_buildings'
@@ -100,6 +100,6 @@ gdf.to_file(
     output_file_path,
     driver='PMTiles',
     MINZOOM=8,
-    MAXZOOM=14,
+    MAXZOOM=12,
 )
 ```
