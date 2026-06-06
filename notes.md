@@ -8,7 +8,6 @@
     - Creating automated deploys from my phone to my website!
 
 - Tech
-  - PMtiles
   - querying a large dataset as geoparquet files within a gcp bucket
 
 - Projects
@@ -17,6 +16,7 @@
   - National Dispersed Camping Map
 
 - Books
+  - 
   librarything.com
 
 - Life

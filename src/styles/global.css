@@ -35,7 +35,10 @@ h3 {
 /* Dark mode text colors */
 .dark h1,
 .dark h2,
-.dark h3 {
+.dark h3,
+.dark h4,
+.dark h5,
+.dark h6 {
   color: white !important;
 }
 
@@ -43,7 +46,7 @@ h3 {
 .dark time,
 .dark strong,
 .dark b,
-.dark span,
+.dark span:not(.astro-code span),
 .dark blockquote {
   color: white !important;
 }
@@ -59,16 +62,44 @@ h3 {
 .dark .prose b,
 .dark .prose em,
 .dark .prose i,
-.dark .prose code {
+.dark .prose :not(pre) > code {
   color: white !important;
 }
 
+/* Preserve Shiki syntax highlighting inside fenced code blocks.
+   Shiki sets each token's color via an inline style attribute; the
+   blanket white-text rules above must NOT override those, or the code
+   loses its highlighting. The :not() exclusions above keep our rules
+   off code-block spans, so the inline colors apply naturally. */
+
 .dark .prose a {
-  color: #60a5fa !important;
+  color: #fbbf24 !important;
 }
 
 .dark .prose a:hover {
-  color: #93c5fd !important;
+  color: #fcd34d !important;
+}
+
+/* Dark mode link color for utility/navigation links outside prose
+   (pagination, back-links, "view more", etc.) that use Tailwind's
+   text-blue-600. Keeps links bright and clearly distinct from white. */
+.dark .text-blue-600 {
+  color: #fbbf24 !important;
+}
+
+.dark .text-blue-600:hover,
+.dark .hover\:text-blue-800:hover {
+  color: #fcd34d !important;
+}
+
+/* Links that already opt into a dark variant (dark:text-blue-400) —
+   keep them consistent with the amber link color above. */
+.dark .dark\:text-blue-400 {
+  color: #fbbf24 !important;
+}
+
+.dark .dark\:hover\:text-blue-300:hover {
+  color: #fcd34d !important;
 }
 
 /* Dark mode for border elements */
