@@ -3,6 +3,7 @@
 ## Top of Mind
 
 - New Tech Writing
+    - R2 bucket hosting PMTiles
     - experience builder widget example
       - Creating Custom experience builder widgets that include settings from the user
     - Creating automated deploys from my phone to my website!

@@ -27,3 +27,9 @@ pnpm-debug.log*
 
 # ai settings
 .claude/
+
+# large pmtiles archives — host on Cloudflare R2 instead (exceeds Pages 25 MiB limit)
+*.pmtiles
+
+# local-only assets staged for cloud upload (e.g. R2), not part of the build
+_local_assets/

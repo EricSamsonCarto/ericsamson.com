@@ -26,7 +26,9 @@ interface Props {
 }
 
 const {
-  pmtilesUrl = '/colorado_buildings_pmtiles/co_microsoft_buildings.pmtiles',
+  // TODO: point this at the .pmtiles archive once it's hosted on Cloudflare R2.
+  // Left empty for now so the map renders a placeholder instead of failing.
+  pmtilesUrl = '',
   sourceLayer = 'co_microsoft_buildings_2',
   center = [-104.9903, 39.7392],
   zoom = 8,
@@ -55,6 +57,21 @@ const config = { pmtilesUrl, sourceLayer, center, zoom, maxZoom };
     border-radius: 0.5rem;
     overflow: hidden;
     box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  }
+
+  /* Placeholder shown when no PMTiles archive is configured. */
+  .buildings-map--empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1a1a1a;
+  }
+  .buildings-map-empty-msg {
+    margin: 0;
+    padding: 1rem;
+    color: #9ca3af;
+    font-size: 0.95rem;
+    text-align: center;
   }
 
   /* MapLibre injects its own popup markup; style it to match the dark map */
@@ -132,6 +149,15 @@ const config = { pmtilesUrl, sourceLayer, center, zoom, maxZoom };
       el.dataset.initialized = 'true';
 
       const cfg = JSON.parse(el.dataset.config!) as MapConfig;
+
+      // No archive configured yet (file moving to R2). Show a placeholder
+      // instead of initializing a map that has no tiles to load.
+      if (!cfg.pmtilesUrl) {
+        el.classList.add('buildings-map--empty');
+        el.innerHTML =
+          '<p class="buildings-map-empty-msg">Map data is being migrated to cloud storage and will be back shortly.</p>';
+        return;
+      }
 
       const map = new maplibregl.Map({
         container: el,
