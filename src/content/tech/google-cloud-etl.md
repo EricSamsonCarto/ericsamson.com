@@ -6,16 +6,16 @@ thumbnail: "/public/images/writing/tech/gcp_pipeline.jpg"
 github: "https://github.com/EricSamsonCarto/GCP-Data-ETL"
 ---
 
-A vendor delivers data to us via a Google Cloud Storage bucket once a month. The file is large, around 180 gbs, and the delivery date isn't fixed. It shows up sometime around the same week each month, but there's no exact timestamp we can count on. Rather than checking manually or building a fragile polling script, we automated the entire ETL process within GCP using four services:
+On my free time I gather a large dataset that lands in a Google Cloud Storage bucket once a month. The file is large, around 180 gbs, and the date it shows up isn't fixed. It appears sometime around the same week each month, but there's no exact timestamp I can count on. Rather than checking manually or building a fragile polling script, I automated the entire ETL process within GCP using four services:
 
 - **Cloud Scheduler** — triggers everything on a nightly schedule
 - **Cloud Run Function** — checks for the file and spins up a VM if it finds one
 - **Compute Engine** — an ephemeral VM that runs the actual import
 - **Artifact Registry** — hosts the Docker image the VM pulls at startup
 
-Here's the flow: Cloud Scheduler fires every night and triggers the Cloud Function. The Cloud Function checks the GCS bucket. If there's no file, it quits. Nothing happens, no cost. If there *is* a file, it spins up a new VM configured to run our Docker image automatically on startup. That container streams the data file directly into our PostgreSQL database, builds indexes, cleans up after itself, and then deletes the VM. If something goes wrong, the VM still deletes itself, that way we're not paying for a broken VM to sit and chill.
+Here's the flow: Cloud Scheduler fires every night and triggers the Cloud Function. The Cloud Function checks the GCS bucket. If there's no file, it quits. Nothing happens, no cost. If there *is* a file, it spins up a new VM configured to run my Docker image automatically on startup. That container streams the data file directly into my PostgreSQL database, builds indexes, cleans up after itself, and then deletes the VM. If something goes wrong, the VM still deletes itself, that way I'm not paying for a broken VM to sit and chill.
 
-We can also easily set up GCP log-based alerts when the import succeeds, when it fails, and when the VM deletes itself, so we always know what happened without having to go check. I have the GCP app on my phone, so even when I am on the move I can confirm that the transfer completed succesfully.
+I can also easily set up GCP log-based alerts when the import succeeds, when it fails, and when the VM deletes itself, so I always know what happened without having to go check. I have the GCP app on my phone, so even when I am on the move I can confirm that the transfer completed succesfully.
 
 The whole thing costs around $5–6/month for a monthly import. Pretty cheap for a fully automated pipeline handling a large dataset. Certainly cheaper than me doing it manually each month.
 
@@ -51,7 +51,7 @@ For each one:
 
 ### Phase 2: Secret Manager Setup
 
-The VM needs database credentials at runtime. We store them in Secret Manager and fetch them inside the container. Nothing sensitive ever lives in code or environment variables baked into the image.
+The VM needs database credentials at runtime. I store them in Secret Manager and fetch them inside the container. Nothing sensitive ever lives in code or environment variables baked into the image.
 
 Add the following three secrets:
 - Database username
@@ -80,7 +80,7 @@ container_name = 'data-etl'
 service_account_email = 'your-vm-sa@your-project.iam.gserviceaccount.com'
 ```
 
-The `vm_names_to_check` list is worth calling out. The Cloud Function scans all running VMs before doing anything — if it finds one whose name contains any string from that list, it exits early. This prevents other imports from overlapping if a different run is still in progress when the scheduler fires again. For our team, we have a lot of these running multiple times throughout the month, we don't want multiple running at once clogging up database I/O.
+The `vm_names_to_check` list is worth calling out. The Cloud Function scans all running VMs before doing anything — if it finds one whose name contains any string from that list, it exits early. This prevents other imports from overlapping if a different run is still in progress when the scheduler fires again. I run a few of these throughout the month, and I don't want multiple running at once clogging up database I/O.
 
 **`data_etl_vm/config.py`** controls the import job itself that will be a docker container:
 
@@ -104,7 +104,7 @@ auto_shutdown = True
 
 The VM runs a Docker container. The entry point is `main.py`, which orchestrates the full pipeline:
 
-1. **Verify the file is there** (`find_gz_file`) — we know the Cloud Function found it, but a double-check costs nothing and avoids a confusing failure later
+1. **Verify the file is there** (`find_gz_file`) — I know the Cloud Function found it, but a double-check costs nothing and avoids a confusing failure later
 2. **Fetch DB credentials** (`get_db_config`) — pulls the three secrets from Secret Manager and assembles a connection config dict
 3. **Stream the import** (`run_psql_import`) — this is the core of the whole thing:
 
@@ -124,9 +124,9 @@ def run_psql_import(gs_zip_path: str, db_config: Dict[str, str]) -> None:
     subprocess.run(statement, shell=True, check=True)
 ```
 
-Rather than downloading the file first, we stream it — `gsutil cat` pipes directly into `gunzip` which pipes directly into `psql`. For a large file this saves a lot of time and avoids needing extra disk space. For my dataset this typically runs for a little over an hour.
+Rather than downloading the file first, I stream it — `gsutil cat` pipes directly into `gunzip` which pipes directly into `psql`. For a large file this saves a lot of time and avoids needing extra disk space. For my dataset this typically runs for a little over an hour.
 
-4. **Run post-import SQL** (`create_indexes`) — after the data is in, we execute `create_indexes.sql`. This is where you add your indexes, rename tables, create views, or do any other finalization. The timeout is configurable in `config.py`.
+4. **Run post-import SQL** (`create_indexes`) — after the data is in, I execute `create_indexes.sql`. This is where you add your indexes, rename tables, create views, or do any other finalization. The timeout is configurable in `config.py`.
 
 5. **Clean up** — delete the source file from GCS (`delete_file`) and delete the VM (`shutdown_vm`). The VM self-deletion works by calling the GCE metadata server to get the instance name, zone, and project, then issuing a delete request via the Compute API. This runs in a `finally` block, so it fires whether the import succeeded or failed.
 
