@@ -174,7 +174,7 @@ COPY sql/create_indexes.sql .
 CMD ["python", "main.py"]
 ```
 
-We need `google-cloud-cli` for `gsutil`. The rest is standard Python.
+I need `google-cloud-cli` for `gsutil`. The rest is standard Python.
 
 > **Tip:** If you want to keep the VM alive after a run to inspect logs, set `AUTO_SHUTDOWN=false` as an environment variable at runtime. The code checks for this env var and uses it to override the `auto_shutdown` value from `config.py` — no container rebuild needed.
 
