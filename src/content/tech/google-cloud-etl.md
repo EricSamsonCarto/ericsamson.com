@@ -6,7 +6,7 @@ thumbnail: "/public/images/writing/tech/gcp_pipeline.jpg"
 github: "https://github.com/EricSamsonCarto/GCP-Data-ETL"
 ---
 
-On my free time I gather a large dataset that lands in a Google Cloud Storage bucket once a month. The file is large, around 180 gbs, and the date it shows up isn't fixed. It appears sometime around the same week each month, but there's no exact timestamp I can count on. Rather than checking manually or building a fragile polling script, I automated the entire ETL process within GCP using four services:
+I am currently working in my free time a side project which requires me to gather a large dataset that lands in a Google Cloud Storage bucket once a month. The file is large, around 180 gbs, and the date it shows up isn't fixed. It appears sometime around the same week each month, but there's no exact timestamp I can count on. Rather than checking manually or building a fragile polling script, I automated the entire ETL process within GCP using four services:
 
 - **Cloud Scheduler** — triggers everything on a nightly schedule
 - **Cloud Run Function** — checks for the file and spins up a VM if it finds one
