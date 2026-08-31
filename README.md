@@ -4,8 +4,7 @@ My personal space for projects, writing, and exploring how data gets visualized 
 
 ## What's Here
 
-**Projects** – Maps and geospatial applications I've built, mostly centered around data visualization and analysis.
-
+**Projects** – Maps and geospatial applications I've built, mostly centered around data visualization and analysis.s
 **Writing** – Three categories:
 - **Tech** – Documenting technologies I'm working with and learning from
 - **Life** – Thoughts on travel, outdoor activities, and other stuff worth writing about
