@@ -20,7 +20,7 @@ const totalPages = Math.ceil(sortedProjects.length / 6);
           <ContentListCard
             title={project.data.title}
             date={project.data.date}
-            slug={project.slug}
+            slug={project.id}
             thumbnail={project.data.thumbnail}
             collection="projects"
             eager={index < 6}

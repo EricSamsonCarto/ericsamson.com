@@ -13,8 +13,9 @@
 
 - Projects
   - Conness-GIS
+  - Dispersed Camping Map Update
   - tourism map, querying osm within a set radius, get all points marked tourism, clean it up and return it to the user
-  - National Dispersed Camping Map
+  - using a cloudflare worker to hold API key
 
 - Books
   - neil gaiman

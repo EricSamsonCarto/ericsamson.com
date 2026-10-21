@@ -20,7 +20,7 @@ const totalPages = Math.ceil(sortedBooks.length / 6);
           <ContentListCard
             title={book.data.title}
             date={book.data.date}
-            slug={book.slug}
+            slug={book.id}
             thumbnail={book.data.thumbnail}
             collection="books"
             eager={index < 6}

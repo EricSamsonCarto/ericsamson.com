@@ -26,7 +26,7 @@ const { title, items, collection, viewMoreUrl, viewMoreText } = Astro.props;
         <ContentCard
           title={item.data.title}
           date={item.data.date}
-          slug={item.slug}
+          slug={item.id}
           thumbnail={item.data.thumbnail}
           collection={collection}
           eager={true}
@@ -38,7 +38,7 @@ const { title, items, collection, viewMoreUrl, viewMoreText } = Astro.props;
         <ContentCard
           title={items[2].data.title}
           date={items[2].data.date}
-          slug={items[2].slug}
+          slug={items[2].id}
           thumbnail={items[2].data.thumbnail}
           collection={collection}
           eager={true}

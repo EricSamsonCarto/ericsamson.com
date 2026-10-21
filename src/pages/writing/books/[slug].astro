@@ -1,5 +1,5 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
 import PageLayout from '../../../layouts/PageLayout.astro';
 import BookHeader from '../../../components/BookHeader.astro';
 
@@ -10,13 +10,13 @@ export type Props = {
 export async function getStaticPaths() {
   const posts = await getCollection('books');
   return posts.map((post: CollectionEntry<'books'>) => ({
-    params: { slug: post.slug },
+    params: { slug: post.id },
     props: { post },
   }));
 }
 
 const { post }: Props = Astro.props;
-const { Content } = await post.render();
+const { Content } = await render(post);
 ---
 
 <PageLayout title={post.data.title}>

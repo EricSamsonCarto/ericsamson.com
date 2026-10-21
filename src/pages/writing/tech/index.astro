@@ -20,7 +20,7 @@ const totalPages = Math.ceil(sortedTech.length / 6);
           <ContentListCard
             title={post.data.title}
             date={post.data.date}
-            slug={post.slug}
+            slug={post.id}
             thumbnail={post.data.thumbnail}
             collection="tech"
             eager={index < 6}
