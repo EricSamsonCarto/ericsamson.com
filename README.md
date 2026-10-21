@@ -33,12 +33,12 @@ npm run build
 ### Add a book
 
 ```bash
-npm run add-book -- --title "Dune" --rating 5 --quote "I must not fear."
+npm run add-book -- --title "Dune" --author "Frank Herbert" --date 2026-10-21 --rating 5 --quote "I must not fear."
 ```
 
-- Wrong match? Add `--author "Frank Herbert"`.
+- `--author` is optional but helps the match. `--date` (finished date) defaults to today.
 - No cover / covers site down? Add `--cover ./cover.jpg`.
-- Creates `src/content/books/<slug>.md` + cover. Edit the `date` (finished date) if needed.
+- Creates `src/content/books/<slug>.md` + cover.
 
 ### Add an article
 

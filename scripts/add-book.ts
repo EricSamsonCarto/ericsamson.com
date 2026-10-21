@@ -15,6 +15,7 @@ const BookArgumentsSchema = z.object({
   quote: z.string().min(1),
   author: z.string().min(1).optional(),
   cover: z.string().min(1).optional(),
+  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'use YYYY-MM-DD').optional(),
 });
 
 const SearchDocSchema = z.object({
@@ -27,6 +28,21 @@ const SearchDocSchema = z.object({
 
 const SearchResponseSchema = z.object({
   docs: z.array(SearchDocSchema),
+});
+
+const EditionMatchSchema = z.object({
+  title: z.string(),
+  cover_i: z.number().optional(),
+  isbn: z.array(z.string()).default([]),
+});
+
+const EditionSearchResponseSchema = z.object({
+  docs: z.array(
+    z.object({
+      author_name: z.array(z.string()).default([]),
+      editions: z.object({ docs: z.array(EditionMatchSchema) }),
+    }),
+  ),
 });
 
 const EditionSchema = z.object({
@@ -48,7 +64,7 @@ type BookEntry = {
 };
 
 const USAGE =
-  'Usage: npm run add-book -- --title "Dune" --rating 5 --quote "I must not fear." [--author "Frank Herbert"] [--cover ./dune.jpg]';
+  'Usage: npm run add-book -- --title "Dune" --rating 5 --quote "I must not fear." [--author "Frank Herbert"] [--date 2026-10-21] [--cover ./dune.jpg]';
 
 export const slugify = (title: string): string =>
   title
@@ -84,6 +100,7 @@ const parseBookArguments = (argv: readonly string[]): BookArguments => {
       quote: { type: 'string' },
       author: { type: 'string' },
       cover: { type: 'string' },
+      date: { type: 'string' },
     },
   });
   const parsed = BookArgumentsSchema.safeParse(values);
@@ -111,10 +128,31 @@ const searchOpenLibrary = async (options: { title: string; author?: string }): P
   });
   const { docs } = SearchResponseSchema.parse(await fetchJson(`${OPEN_LIBRARY_URL}/search.json?${params}`));
   const [firstMatch] = docs;
-  if (!firstMatch) {
+  if (firstMatch) return firstMatch;
+  const editionMatch = await searchEditionTitles({ title, author });
+  if (!editionMatch) {
     throw new Error(`No Open Library match for "${title}". Try adding --author.`);
   }
-  return firstMatch;
+  return editionMatch;
+};
+
+const searchEditionTitles = async (options: { title: string; author?: string }): Promise<SearchDoc | undefined> => {
+  const { title, author } = options;
+  const params = new URLSearchParams({
+    q: title,
+    limit: '5',
+    fields: 'key,author_name,editions,editions.title,editions.cover_i,editions.isbn',
+  });
+  const { docs } = EditionSearchResponseSchema.parse(await fetchJson(`${OPEN_LIBRARY_URL}/search.json?${params}`));
+  const work = docs.find(({ editions }) => editions.docs[0] && slugify(editions.docs[0].title) === slugify(title));
+  const edition = work?.editions.docs[0];
+  if (!work || !edition) return undefined;
+  return {
+    title,
+    author_name: author ? [author] : work.author_name,
+    cover_i: edition.cover_i,
+    isbn: edition.isbn,
+  };
 };
 
 const fetchCoverEditionIsbn = async (editionKey: string | undefined): Promise<string | undefined> => {
@@ -168,7 +206,7 @@ const addBook = async (argv: readonly string[]): Promise<void> => {
     title: match.title,
     author: match.author_name.join(', ') || bookArguments.author || 'Unknown',
     quote: bookArguments.quote,
-    date: todayIsoDate(),
+    date: bookArguments.date ?? todayIsoDate(),
     isbn,
     rating: bookArguments.rating,
     slug,
