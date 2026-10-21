@@ -11,8 +11,16 @@ type Props = {
 const { book } = Astro.props;
 ---
 
-<div class="flex flex-row gap-4 md:gap-8">
-  <div class="w-1/3 flex-shrink-0">
+<div class="flex flex-col min-[450px]:grid min-[450px]:grid-cols-[1fr_2fr] min-[450px]:grid-rows-[auto_auto_1fr_auto] min-[450px]:gap-x-4 md:gap-x-8">
+  <h2 class="text-xl md:text-3xl font-bold text-gray-900 dark:text-white mb-1 min-[450px]:mb-2 min-[450px]:col-start-2">
+    {book.data.title}
+  </h2>
+
+  <div class="text-lg md:text-xl mb-3 min-[450px]:col-start-2">
+    <StarRating rating={book.data.rating} />
+  </div>
+
+  <div class="w-32 mx-auto mb-4 min-[450px]:w-full min-[450px]:mb-0 min-[450px]:col-start-1 min-[450px]:row-start-1 min-[450px]:row-span-4">
     <Image
       src={book.data.thumbnail}
       alt={book.data.title}
@@ -24,27 +32,15 @@ const { book } = Astro.props;
     />
   </div>
 
-  <div class="flex flex-col justify-between flex-1">
-    <div>
-      <h2 class="text-xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">
-        {book.data.title}
-      </h2>
+  <div class="border-l-4 border-gray-300 dark:border-neutral-700 pl-3 md:pl-6 py-1 md:py-2 mb-4 min-[450px]:col-start-2 min-[450px]:self-start">
+    <blockquote class="text-sm md:text-lg italic text-gray-700 dark:text-white leading-relaxed">
+      {book.data.quote}
+    </blockquote>
+  </div>
 
-      <div class="text-lg md:text-xl mb-3">
-        <StarRating rating={book.data.rating} />
-      </div>
-
-      <div class="border-l-4 border-gray-300 dark:border-gray-600 pl-3 md:pl-6 py-1 md:py-2 mb-4">
-        <blockquote class="text-sm md:text-lg italic text-gray-700 dark:text-white leading-relaxed">
-          {book.data.quote}
-        </blockquote>
-      </div>
-    </div>
-
-    <div class="flex flex-wrap items-center gap-2 md:gap-3 text-xs md:text-sm text-gray-600 dark:text-white">
-      <span>{book.data.author}</span>
-      <span>ISBN: {book.data.ISBN}</span>
-      <span>finished: {book.data.date.toLocaleDateString('en-CA', { timeZone: 'UTC' })}</span>
-    </div>
+  <div class="flex flex-wrap items-center gap-2 md:gap-3 text-xs md:text-sm text-gray-600 dark:text-white min-[450px]:col-start-2">
+    <span>{book.data.author}</span>
+    <span>ISBN: {book.data.ISBN}</span>
+    <span>finished: {book.data.date.toLocaleDateString('en-CA', { timeZone: 'UTC' })}</span>
   </div>
 </div>

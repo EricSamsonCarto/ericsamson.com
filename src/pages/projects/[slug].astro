@@ -38,7 +38,7 @@ const { Content } = await render(post);
           />
         </div>
       )}
-    <div class="border-l-4 border-gray-300 dark:border-gray-600 pl-4 md:pl-6 py-2 md:py-3 mb-2 mt-2">
+    <div class="border-l-4 border-gray-300 dark:border-neutral-700 pl-4 md:pl-6 py-2 md:py-3 mb-2 mt-2">
       <p class="text-base md:text-lg text-gray-700 dark:text-white leading-relaxed italic">
         {post.data.description}
       </p>
@@ -80,7 +80,7 @@ const { Content } = await render(post);
     >
       ← back to projects
     </a>
-    <hr class="dark:border-gray-600">
+    <hr class="dark:border-neutral-700">
 
     <p class="text-sm italic font-bold text-gray-600 dark:text-white mb-3 mt-3">
       completed on: {post.data.date.toLocaleDateString('en-CA', { timeZone: 'UTC' })}
