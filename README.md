@@ -12,7 +12,7 @@ My personal space for projects, writing, and exploring how data gets visualized 
 
 ## Stack
 
-Built with [Astro](https://astro.build) and [Tailwind CSS](https://tailwindcss.com). Hosted on Cloudflare.
+Built with [Astro](https://astro.build) and [Tailwind CSS](https://tailwindcss.com). Hosted on Cloudflare
 
 ## Local Development
 
