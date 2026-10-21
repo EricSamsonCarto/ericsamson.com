@@ -33,3 +33,6 @@ pnpm-debug.log*
 
 # local-only assets staged for cloud upload (e.g. R2), not part of the build
 _local_assets/
+
+# local note taking
+/docs
