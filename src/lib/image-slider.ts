@@ -7,7 +7,6 @@ export class ImageSlider {
   private container: HTMLElement;
   private slider: HTMLElement;
   private beforeImage: HTMLElement;
-  private sliderButton: HTMLElement;
   private isResizing: boolean = false;
   private currentPosition: number = 50; // Start at 50%
 
@@ -22,15 +21,13 @@ export class ImageSlider {
     // Get required elements
     const slider = container.querySelector('.image-slider-handle') as HTMLElement;
     const beforeImage = container.querySelector('.image-slider-before') as HTMLElement;
-    const sliderButton = container.querySelector('.image-slider-button') as HTMLElement;
 
-    if (!slider || !beforeImage || !sliderButton) {
+    if (!slider || !beforeImage) {
       throw new Error('Required slider elements not found');
     }
 
     this.slider = slider;
     this.beforeImage = beforeImage;
-    this.sliderButton = sliderButton;
 
     this.init();
   }

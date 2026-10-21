@@ -153,6 +153,9 @@ const addBook = async (argv: readonly string[]): Promise<void> => {
   }
 
   const slug = slugify(match.title);
+  if (!slug) {
+    throw new Error(`Couldn't make a file name from "${match.title}". Use a title with English letters or numbers.`);
+  }
   const contentPath = `${BOOKS_CONTENT_DIR}/${slug}.md`;
   const coverPath = `${BOOK_COVERS_DIR}/${slug}.jpg`;
 

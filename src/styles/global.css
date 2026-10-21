@@ -72,33 +72,15 @@ h3 {
    loses its highlighting. The :not() exclusions above keep our rules
    off code-block spans, so the inline colors apply naturally. */
 
-.dark .prose a {
+/* Dark mode link color: every link in the page body, plus pagination buttons.
+   Header, footer and card text keep their own colors. */
+.dark main a,
+.dark [data-pagination] button:enabled {
   color: #fbbf24 !important;
 }
 
-.dark .prose a:hover {
-  color: #fcd34d !important;
-}
-
-/* Dark mode link color for utility/navigation links outside prose
-   (pagination, back-links, "view more", etc.) that use Tailwind's
-   text-blue-600. Keeps links bright and clearly distinct from white. */
-.dark .text-blue-600 {
-  color: #fbbf24 !important;
-}
-
-.dark .text-blue-600:hover,
-.dark .hover\:text-blue-800:hover {
-  color: #fcd34d !important;
-}
-
-/* Links that already opt into a dark variant (dark:text-blue-400) —
-   keep them consistent with the amber link color above. */
-.dark .dark\:text-blue-400 {
-  color: #fbbf24 !important;
-}
-
-.dark .dark\:hover\:text-blue-300:hover {
+.dark main a:hover,
+.dark [data-pagination] button:enabled:hover {
   color: #fcd34d !important;
 }
 

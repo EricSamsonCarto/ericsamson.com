@@ -21,10 +21,7 @@ export interface ChartConfig {
   title?: string;
   subtitle?: string;
   datasets: ChartDataset[];
-  xAxisLabel?: string;
-  yAxisLabel?: string;
   height?: number;
-  width?: number;
   colors?: string[];
   showLegend?: boolean;
   showGrid?: boolean;
