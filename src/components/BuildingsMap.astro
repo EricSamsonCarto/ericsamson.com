@@ -2,14 +2,13 @@
 /**
  * BuildingsMap Component
  * A self-contained MapLibre map that reads a PMTiles archive of building
- * footprints directly from the public folder (no tile server required).
+ * footprints directly from a URL (no tile server required).
  *
- * @param pmtilesUrl   - Path to the .pmtiles file (defaults to the Colorado buildings example)
+ * @param pmtilesUrl   - URL of the .pmtiles file (defaults to the Colorado buildings example)
  * @param sourceLayer  - The vector source-layer name inside the archive
  * @param center       - [lng, lat] starting center (defaults to Denver)
  * @param zoom         - Starting zoom
  * @param height       - Map height in pixels
- * @param maxZoom      - Highest zoom the archive contains (tiles overzoom past this)
  * @param id           - Optional element id
  */
 
@@ -21,23 +20,19 @@ interface Props {
   center?: [number, number];
   zoom?: number;
   height?: number;
-  maxZoom?: number;
   id?: string;
 }
 
 const {
-  // TODO: point this at the .pmtiles archive once it's hosted on Cloudflare R2.
-  // Left empty for now so the map renders a placeholder instead of failing.
-  pmtilesUrl = '',
-  sourceLayer = 'co_microsoft_buildings_2',
+  pmtilesUrl = 'https://ericsamsoncarto.github.io/gis-data-hub/data/pmtiles/colorado-buildings.pmtiles',
+  sourceLayer = 'colorado-buildings',
   center = [-104.9903, 39.7392],
   zoom = 8,
   height = 480,
-  maxZoom = 5,
   id = `buildings-map-${Math.random().toString(36).slice(2, 11)}`,
 } = Astro.props;
 
-const config = { pmtilesUrl, sourceLayer, center, zoom, maxZoom };
+const config = { pmtilesUrl, sourceLayer, center, zoom };
 ---
 
 <div
@@ -57,21 +52,6 @@ const config = { pmtilesUrl, sourceLayer, center, zoom, maxZoom };
     border-radius: 0.5rem;
     overflow: hidden;
     box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  }
-
-  /* Placeholder shown when no PMTiles archive is configured. */
-  .buildings-map--empty {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #1a1a1a;
-  }
-  .buildings-map-empty-msg {
-    margin: 0;
-    padding: 1rem;
-    color: #9ca3af;
-    font-size: 0.95rem;
-    text-align: center;
   }
 
   /* MapLibre injects its own popup markup; style it to match the dark map */
@@ -124,36 +104,24 @@ const config = { pmtilesUrl, sourceLayer, center, zoom, maxZoom };
 <script>
   import * as maplibregl from 'maplibre-gl';
   import { Protocol } from 'pmtiles';
+  import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?url';
 
-  // Register the pmtiles:// protocol once per page, even with multiple maps.
-  const w = window as unknown as { __pmtilesRegistered?: boolean };
-  if (!w.__pmtilesRegistered) {
-    const protocol = new Protocol();
-    maplibregl.addProtocol('pmtiles', protocol.tile);
-    w.__pmtilesRegistered = true;
-  }
+  // Bundling breaks maplibre's default lookup of the worker next to its own file.
+  maplibregl.setWorkerUrl(workerUrl);
+
+  maplibregl.addProtocol('pmtiles', new Protocol().tile);
 
   interface MapConfig {
     pmtilesUrl: string;
     sourceLayer: string;
     center: [number, number];
     zoom: number;
-    maxZoom: number;
   }
 
   function initBuildingsMaps() {
     const els = document.querySelectorAll<HTMLElement>('[data-buildings-map]');
     els.forEach((el) => {
       const cfg = JSON.parse(el.dataset.config!) as MapConfig;
-
-      // No archive configured yet (file moving to R2). Show a placeholder
-      // instead of initializing a map that has no tiles to load.
-      if (!cfg.pmtilesUrl) {
-        el.classList.add('buildings-map--empty');
-        el.innerHTML =
-          '<p class="buildings-map-empty-msg">Map data is being migrated to cloud storage and will be back shortly.</p>';
-        return;
-      }
 
       const map = new maplibregl.Map({
         container: el,
@@ -192,7 +160,7 @@ const config = { pmtilesUrl, sourceLayer, center, zoom, maxZoom };
           'source-layer': cfg.sourceLayer,
           paint: {
             'line-color': '#ffffff',
-            'line-width': 0.8,
+            'line-width': 0.2,
           },
         });
       });

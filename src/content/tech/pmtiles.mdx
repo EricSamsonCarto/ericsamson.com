@@ -3,6 +3,7 @@ title: "PMTiles: No Server, No Problem"
 description: "One file, no server, map tiles made easy."
 date: 2026-05-22
 thumbnail: "../../assets/images/writing/tech/pmtiles.jpg"
+github: "https://github.com/EricSamsonCarto/spatial-analysis-projects"
 ---
 
 import BuildingsMap from '../../components/BuildingsMap.astro';
@@ -11,9 +12,11 @@ import BuildingsMap from '../../components/BuildingsMap.astro';
 
 Then I had a free weekend to play with MapLibre on a side project, and I finally put PMTiles into practice. Using them is even better than all of the breathless LinkedIn posts made them seem.
 
-PMTiles is a single-file archive format for tiled data. You can host one on object storage like S3 or a GCP bucket and read it directly in the browser. Think of any tiled data you've worked with before, but far lighter. You can pack multiple layers into a single PMTiles file, though so far I've only tested one dataset at a time. Below is a map of every [Microsoft building footprint](https://github.com/microsoft/USBuildingFootprints) for the state of Colorado, all 2.1 million of them:
+PMTiles is a single-file archive format for tiled data. You can host one on object storage like S3, a GCP bucket, or host on github pages (which is what I did, instructions [here](/writing/tech/gis-data-hub)). MapLibre can then read it directly in the browser. Think of any tiled data you've worked with before, but far lighter. You can pack multiple different layers with different geometries into a single PMTiles file, though so far I've only tested one dataset at a time. Below is a map of every [Microsoft building footprint](https://github.com/microsoft/USBuildingFootprints) for the state of Colorado, all 2.1 million of them:
 
 <BuildingsMap />
+
+The file behind this map lives on GitHub Pages, in a repo I set up called [gis-data-hub](https://github.com/EricSamsonCarto/gis-data-hub). I go over how that works in [a separate article](/writing/tech/gis-data-hub).
 
 As a GeoJSON, this file was 619 MB. The PMTiles version is 57 MB, but here's the trick: you never download the whole thing. PMTiles is read with HTTP range requests, so the browser only fetches the handful of tiles in your current view, a few hundred KB at a time. The first time I packaged this dataset I capped it at a low zoom and the entire file came out to just 90 KB. That's crazy. And you get excellent visualization performance to boot.
 
@@ -27,7 +30,7 @@ I like to use GeoPandas for all of my GIS data conversion and analysis, so I set
 
 Luckily, I discovered that the newest version of GeoPandas can export a GeoDataFrame directly to a PMTiles file.
 
-I used the notebook in one of my [GitHub repositories](https://github.com/EricSamsonCarto/conness-gis/blob/main/convert-data/convert-data.ipynb). That repo also has a file called `spatial_ops.py` with a bunch of functions I use all the time to clean up data quickly.
+All of the code below is in a [notebook](https://github.com/EricSamsonCarto/spatial-analysis-projects/blob/main/src/notebooks/denver_buildings_pmtiles.ipynb) in my [spatial-analysis-projects](https://github.com/EricSamsonCarto/spatial-analysis-projects) repo, if you'd rather run it yourself. That repo also has [`spatial_ops.py`](https://github.com/EricSamsonCarto/spatial-analysis-projects/blob/main/src/core/spatial_ops.py), a file of functions I use all the time to clean up data quickly.
 
 We'll use the Colorado Microsoft Buildings file from the map above for the example below.
 
@@ -72,7 +75,7 @@ gdf.set_geometry('geom', inplace=True)
 
 #### 3. Clean up the geometries
 
-Here's the fun part. I have four functions I reuse all the time: they drop duplicate geometries, simplify geometries, remove small holes within polygons, and fix (make valid) all geometries in a dataset. You can review them in `spatial_ops.py`, but they're a huge help in shrinking larger polygon files.
+Here's the fun part. I have four functions I reuse all the time: they drop duplicate geometries, simplify geometries, remove small holes within polygons, and fix (make valid) all geometries in a dataset. You can review them in [`spatial_ops.py`](https://github.com/EricSamsonCarto/spatial-analysis-projects/blob/main/src/core/spatial_ops.py), but they're a huge help in shrinking larger polygon files.
 
 For this dataset, I ran the following:
 
