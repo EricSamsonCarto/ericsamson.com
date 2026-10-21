@@ -82,32 +82,6 @@ const config: ChartConfig = {
 </div>
 
 <script>
-  import { Chart } from '../lib/chart.ts';
-
-  function initCharts() {
-    const charts = document.querySelectorAll('[data-chart]');
-    charts.forEach((chartElement) => {
-      const id = chartElement.getAttribute('id');
-      const configStr = chartElement.getAttribute('data-chart-config');
-
-      if (id && configStr) {
-        try {
-          const config = JSON.parse(configStr);
-          new Chart(id, config);
-        } catch (error) {
-          console.error(`Failed to initialize chart ${id}:`, error);
-        }
-      }
-    });
-  }
-
-  // Run on initial load
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initCharts);
-  } else {
-    initCharts();
-  }
-
-  // Re-initialize on page navigation (for SPAs)
-  document.addEventListener('astro:page-load', initCharts);
+  import { initializeCharts } from '../lib/chart';
+  initializeCharts();
 </script>

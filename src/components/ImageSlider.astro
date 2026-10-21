@@ -91,30 +91,6 @@ const {
 </div>
 
 <script>
-  import { ImageSlider } from '../lib/image-slider.ts';
-
-  // Initialize slider when DOM is ready
-  function initSlider() {
-    const sliders = document.querySelectorAll('[data-image-slider]');
-    sliders.forEach((sliderElement) => {
-      const id = sliderElement.getAttribute('id');
-      if (id) {
-        try {
-          new ImageSlider(id);
-        } catch (error) {
-          console.error(`Failed to initialize slider ${id}:`, error);
-        }
-      }
-    });
-  }
-
-  // Run on initial load
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initSlider);
-  } else {
-    initSlider();
-  }
-
-  // Re-initialize on page navigation (for SPAs)
-  document.addEventListener('astro:page-load', initSlider);
+  import { initializeSliders } from '../lib/image-slider';
+  initializeSliders();
 </script>

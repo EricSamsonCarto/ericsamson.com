@@ -116,23 +116,10 @@ export class ImageSlider {
 
     // Update before image clip-path
     this.beforeImage.style.clipPath = `inset(0 ${100 - position}% 0 0)`;
-  }
 
-  // Public method to programmatically set position
-  public setPosition(position: number): void {
-    const clampedPosition = Math.max(0, Math.min(100, position));
-    this.updatePosition(clampedPosition);
-  }
-
-  // Public method to destroy the slider and remove event listeners
-  public destroy(): void {
-    this.slider.removeEventListener('mousedown', this.startResize.bind(this));
-    document.removeEventListener('mousemove', this.resize.bind(this));
-    document.removeEventListener('mouseup', this.stopResize.bind(this));
-    this.slider.removeEventListener('touchstart', this.startResize.bind(this));
-    document.removeEventListener('touchmove', this.resize.bind(this));
-    document.removeEventListener('touchend', this.stopResize.bind(this));
-    this.slider.removeEventListener('keydown', this.handleKeyboard.bind(this));
+    const roundedPosition = Math.round(position);
+    this.slider.setAttribute('aria-valuenow', String(roundedPosition));
+    this.slider.setAttribute('aria-valuetext', `${roundedPosition}% between before and after`);
   }
 }
 
@@ -141,8 +128,11 @@ export function initializeSliders(): void {
   const sliders = document.querySelectorAll('[data-image-slider]');
   sliders.forEach((slider) => {
     const id = slider.getAttribute('id');
-    if (id) {
+    if (!id) return;
+    try {
       new ImageSlider(id);
+    } catch (error) {
+      console.error(`Failed to initialize slider ${id}:`, error);
     }
   });
 }

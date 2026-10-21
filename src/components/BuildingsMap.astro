@@ -144,10 +144,6 @@ const config = { pmtilesUrl, sourceLayer, center, zoom, maxZoom };
   function initBuildingsMaps() {
     const els = document.querySelectorAll<HTMLElement>('[data-buildings-map]');
     els.forEach((el) => {
-      // Avoid double-initializing on view transitions.
-      if (el.dataset.initialized === 'true') return;
-      el.dataset.initialized = 'true';
-
       const cfg = JSON.parse(el.dataset.config!) as MapConfig;
 
       // No archive configured yet (file moving to R2). Show a placeholder
@@ -238,6 +234,4 @@ const config = { pmtilesUrl, sourceLayer, center, zoom, maxZoom };
   } else {
     initBuildingsMaps();
   }
-
-  document.addEventListener('astro:page-load', initBuildingsMaps);
 </script>

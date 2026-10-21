@@ -1,0 +1,45 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import PageLayout from './PageLayout.astro';
+import ContentCard from '../components/ContentCard.astro';
+import Pagination from '../components/Pagination.astro';
+import { sortByDate } from '../lib/content-helpers';
+
+type ListCollection = 'projects' | 'tech' | 'life';
+
+type Props = {
+  title: string;
+  heading: string;
+  collection: ListCollection;
+  entries: CollectionEntry<ListCollection>[];
+};
+
+const ITEMS_PER_PAGE = 6;
+
+const { title, heading, collection, entries } = Astro.props;
+const sortedEntries = sortByDate(entries);
+---
+
+<PageLayout title={title}>
+  <div class="mt-4">
+    <h3 class="text-lg font-semibold mb-4 underline">{heading}</h3>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+      {sortedEntries.map((entry, index) => (
+        <div class="paginated-item">
+          <ContentCard
+            title={entry.data.title}
+            date={entry.data.date}
+            slug={entry.id}
+            thumbnail={entry.data.thumbnail}
+            collection={collection}
+            eager={index < ITEMS_PER_PAGE}
+            size="large"
+          />
+        </div>
+      ))}
+    </div>
+
+    <Pagination totalItems={sortedEntries.length} perPage={ITEMS_PER_PAGE} />
+  </div>
+</PageLayout>

@@ -104,7 +104,6 @@ export class Chart {
 
     this.canvas.width = rect.width * dpr;
     this.canvas.height = (this.config.height || 400) * dpr;
-    this.canvas.style.width = `${rect.width}px`;
     this.canvas.style.height = `${this.config.height || 400}px`;
 
     this.ctx.scale(dpr, dpr);
@@ -531,11 +530,6 @@ export class Chart {
       (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 +
       (B < 255 ? B < 1 ? 0 : B : 255))
       .toString(16).slice(1);
-  }
-
-  public destroy(): void {
-    this.canvas.removeEventListener('mousemove', this.handleMouseMove.bind(this));
-    this.canvas.removeEventListener('mouseleave', this.handleMouseLeave.bind(this));
   }
 }
 

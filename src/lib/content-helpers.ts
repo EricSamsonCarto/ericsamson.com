@@ -16,10 +16,3 @@ export function getLatest<T extends DatedEntry>(items: readonly T[], count: numb
   return sortByDate(items).slice(0, count);
 }
 
-/**
- * Filters and sorts multiple collections by date
- */
-export function combineAndSortCollections<T extends DatedEntry>(...collections: readonly T[][]): T[] {
-  const combined = collections.flat();
-  return sortByDate(combined);
-}

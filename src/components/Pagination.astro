@@ -1,0 +1,30 @@
+---
+type Props = {
+  totalItems: number;
+  perPage: number;
+};
+
+const { totalItems, perPage } = Astro.props;
+const totalPages = Math.ceil(totalItems / perPage);
+const BUTTON_CLASS =
+  'px-4 py-2 text-sm text-blue-600 hover:text-blue-800 hover:underline disabled:text-gray-400 disabled:no-underline disabled:cursor-not-allowed';
+---
+
+<div
+  data-pagination
+  data-per-page={perPage}
+  class:list={['justify-center items-center gap-4 mt-8', totalPages > 1 ? 'flex' : 'hidden']}
+>
+  <button id="prev-btn" class={BUTTON_CLASS}>← Previous</button>
+
+  <span class="text-sm text-gray-600">
+    Page <span id="current-page">1</span> of <span id="total-pages">{totalPages}</span>
+  </span>
+
+  <button id="next-btn" class={BUTTON_CLASS}>Next →</button>
+</div>
+
+<script>
+  import { initializePagination } from '../lib/pagination';
+  initializePagination();
+</script>

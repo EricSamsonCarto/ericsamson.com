@@ -3,21 +3,20 @@ import { getCollection } from 'astro:content';
 import PageLayout from '../../../layouts/PageLayout.astro';
 import BookCoverCard from '../../../components/BookCoverCard.astro';
 import BookDialog from '../../../components/BookDialog.astro';
+import Pagination from '../../../components/Pagination.astro';
 import { sortByDate } from '../../../lib/content-helpers';
 
 const allBooks = await getCollection('books');
 const sortedBooks = sortByDate(allBooks);
 const BOOKS_PER_PAGE = 9;
 const ABOVE_THE_FOLD_BOOKS = 6;
-const totalPages = Math.ceil(sortedBooks.length / BOOKS_PER_PAGE);
 ---
 
 <PageLayout title="Books">
   <div class="mt-4">
     <h3 class="text-lg font-semibold mb-4 underline">books</h3>
 
-    <!-- Grid - shows all items, pagination handled by script -->
-    <div id="content-grid" class="grid grid-cols-3 gap-4 md:gap-6 mb-8">
+    <div class="grid grid-cols-3 gap-4 md:gap-6 mb-8">
       {sortedBooks.map((book, index) => (
         <div class="paginated-item">
           <BookCoverCard book={book} eager={index < ABOVE_THE_FOLD_BOOKS} />
@@ -25,42 +24,13 @@ const totalPages = Math.ceil(sortedBooks.length / BOOKS_PER_PAGE);
       ))}
     </div>
 
-    <!-- Pagination controls -->
-    {totalPages > 1 && (
-      <div class="flex justify-center items-center gap-4 mt-8">
-        <button
-          id="prev-btn"
-          class="px-4 py-2 text-sm text-blue-600 hover:text-blue-800 hover:underline disabled:text-gray-400 disabled:no-underline disabled:cursor-not-allowed"
-        >
-          ← Previous
-        </button>
-
-        <span class="text-sm text-gray-600">
-          Page <span id="current-page">1</span> of <span id="total-pages">1</span>
-        </span>
-
-        <button
-          id="next-btn"
-          class="px-4 py-2 text-sm text-blue-600 hover:text-blue-800 hover:underline disabled:text-gray-400 disabled:no-underline disabled:cursor-not-allowed"
-        >
-          Next →
-        </button>
-      </div>
-    )}
+    <Pagination totalItems={sortedBooks.length} perPage={BOOKS_PER_PAGE} />
 
     {sortedBooks.map((book) => <BookDialog book={book} />)}
   </div>
 </PageLayout>
 
-<style>
-  .paginated-item.hidden {
-    display: none;
-  }
-</style>
-
 <script>
-  import { initializePagination } from '../../../lib/pagination';
   import { initializeBookDialogs } from '../../../lib/book-dialog';
-  initializePagination(9);
   initializeBookDialogs();
 </script>

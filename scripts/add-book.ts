@@ -176,6 +176,7 @@ const addBook = async (argv: readonly string[]): Promise<void> => {
 
   console.log(`Added "${book.title}" by ${book.author} (ISBN ${book.isbn || 'missing'})`);
   console.log(`  ${contentPath}\n  ${coverPath}`);
+  if (!book.isbn) console.warn('No ISBN found. Add one to the file, or the build will fail.');
   console.log('Double-check the match, then commit.');
 };
 
