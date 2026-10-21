@@ -3,8 +3,10 @@ title: "Dispersed Camping in California Mapping Application"
 description: "Leaflet Map created to find dispersed camping locations throughout the state of California."
 date: 2020-01-01
 github: "https://github.com/EricSamsonCarto/Dispersed-Camping-in-CA-Leaflet"
-thumbnail: "/images/projects/dispersed-camping-ca/main_dispersed_image.jpg"
+thumbnail: "../../assets/images/projects/dispersed-camping-ca/main_dispersed_image.jpg"
 ---
+
+import ContentImage from '../../components/ContentImage.astro';
 
 <h3>
 <a href="/dispersed-camping-project/dispersed-camping-app.html" target="_blank">live application</a>
@@ -20,22 +22,22 @@ Make sure to double check that the location you have found is not on someones pr
 
 The GIF below goes through an example of finding dispersed camping locations.
 
-<Image src="/images/projects/dispersed-camping-ca/camp_1_gif.gif" alt="Camping locations example" width={1200} height={800} />
+<ContentImage src="projects/dispersed-camping-ca/camp_1_gif.gif" alt="Camping locations example" />
 
 There are official campgrounds displayed on the map as well (see legend above map). These campgrounds can be “first come first serve” or reservation based, depending on the site. Clicking on a camp icon will open a pop-up, from which you can visit the campground's forest service website to find additional information. I have also added some trailheads:
 
-<Image src="/images/projects/dispersed-camping-ca/camp_2_img.JPG" alt="trailheads" width={1200} height={800} />
+<ContentImage src="projects/dispersed-camping-ca/camp_2_img.JPG" alt="trailheads" />
 
 The layers button can be used to switch between the satellite basemap and the topographic basemap. Some layers can also be turned on and off. When zoomed in and exploring, the green "DispersedCampLand" layer will turn off automatically at zoom level 13.
 
 The marker button allows users to place a point where they find a potential camping spot. When clicking on a marker after it's placed, the popup will give several clickable link options. The first link simply searches the coordinates on google, which can then be opened in google maps. If the Lat,Lon is on a major road, Google Street View can be launched via the second link. If you want to know the weather at the marker location, a National Weather Service NOAA link is included. The markers can then be exported to a geoJSON or a KML file:
 
-<Image src="/images/projects/dispersed-camping-ca/camp_3_img.JPG" alt="creating camping points" width={1200} height={800} />
+<ContentImage src="projects/dispersed-camping-ca/camp_3_img.JPG" alt="creating camping points" />
 
 When exporting to KML, the points can be added to Google Maps by first visiting My Maps. Click "CREATE A NEW MAP" and follow the GIF below. The new custom map can be opened on the mobile Google Maps app by going to "Your places" -> scrolling the top bar to the right -> "Maps." There you will find all of your custom maps.
 
 The GIF below quickly shows how to add the Dispersed Campsite points to a custom Google Map:
 
-<Image src="/images/projects/dispersed-camping-ca/camp_3_gif.gif" alt="creating google maps" width={1200} height={800} />
+<ContentImage src="projects/dispersed-camping-ca/camp_3_gif.gif" alt="creating google maps" />
 
 

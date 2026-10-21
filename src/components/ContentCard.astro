@@ -1,11 +1,13 @@
 ---
 import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { CARD_IMAGE_MAX_WIDTH, CARD_IMAGE_SIZES, CARD_IMAGE_WIDTHS } from '../lib/content-images';
 
 type Props = {
   title: string;
   date: Date;
   slug: string;
-  thumbnail?: string;
+  thumbnail?: ImageMetadata;
   collection: 'projects' | 'tech' | 'books' | 'life';
   eager?: boolean;
 };
@@ -14,11 +16,11 @@ const { title, date, slug, thumbnail, collection, eager = false } = Astro.props;
 
 const getUrl = () => {
   if (collection === 'projects') return `/projects/${slug}`;
+  if (collection === 'books') return `/writing/books#${slug}`;
   return `/writing/${collection}/${slug}`;
 };
 
 const url = getUrl();
-const thumbnailSrc = thumbnail?.replace('/public', '') || '';
 ---
 
 <article class="group relative overflow-hidden rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200">
@@ -26,10 +28,11 @@ const thumbnailSrc = thumbnail?.replace('/public', '') || '';
     {thumbnail && (
       <div class="relative h-28 sm:h-32 md:h-36 overflow-hidden">
         <Image
-          src={thumbnailSrc}
+          src={thumbnail}
           alt={title}
-          width={400}
-          height={300}
+          width={CARD_IMAGE_MAX_WIDTH}
+          widths={CARD_IMAGE_WIDTHS}
+          sizes={CARD_IMAGE_SIZES}
           class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
           loading={eager ? "eager" : "lazy"}
         />
@@ -39,7 +42,7 @@ const thumbnailSrc = thumbnail?.replace('/public', '') || '';
         <!-- Text overlay -->
         <div class="absolute bottom-0 left-0 right-0 p-3 text-white">
           <time class="text-[10px] md:text-xs text-white/90 block mb-1">
-            {date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+            {date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' })}
           </time>
           <p class="text-xs md:text-sm font-semibold leading-tight line-clamp-2">
             {title}

@@ -2,7 +2,7 @@
 title: "Astro"
 description: "Testing out the new(ish) optimized web framework"
 date: 2025-10-08
-thumbnail: "/public/images/writing/tech/astro.jpg"
+thumbnail: "../../assets/images/writing/tech/astro.jpg"
 ---
 
 Not another framework! This one is awesome, I promise. The website you are on right now was built with it. Now that I have used it for a few different projects, I don’t think I could ever go back.

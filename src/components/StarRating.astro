@@ -1,0 +1,15 @@
+---
+type Props = {
+  rating: number;
+};
+
+const MAX_RATING = 5;
+const { rating } = Astro.props;
+const stars = Array.from({ length: MAX_RATING }, (_, index) => index < rating);
+---
+
+<div class="flex gap-0.5 text-amber-500" role="img" aria-label={`${rating} out of ${MAX_RATING} stars`}>
+  {stars.map((filled) => (
+    <span aria-hidden="true" class={filled ? '' : 'text-gray-300 dark:text-gray-600'}>★</span>
+  ))}
+</div>

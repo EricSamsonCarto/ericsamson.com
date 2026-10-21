@@ -1,0 +1,50 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import StarRating from './StarRating.astro';
+import { BOOK_COVER_HEIGHT, BOOK_COVER_WIDTH } from '../lib/content-images';
+
+type Props = {
+  book: CollectionEntry<'books'>;
+}
+
+const { book } = Astro.props;
+---
+
+<div class="flex flex-row gap-4 md:gap-8">
+  <div class="w-1/3 flex-shrink-0">
+    <Image
+      src={book.data.thumbnail}
+      alt={book.data.title}
+      class="w-full aspect-[2/3] object-cover rounded-lg shadow-lg"
+      width={BOOK_COVER_WIDTH}
+      height={BOOK_COVER_HEIGHT}
+      fit="cover"
+      loading="lazy"
+    />
+  </div>
+
+  <div class="flex flex-col justify-between flex-1">
+    <div>
+      <h2 class="text-xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">
+        {book.data.title}
+      </h2>
+
+      <div class="text-lg md:text-xl mb-3">
+        <StarRating rating={book.data.rating} />
+      </div>
+
+      <div class="border-l-4 border-gray-300 dark:border-gray-600 pl-3 md:pl-6 py-1 md:py-2 mb-4">
+        <blockquote class="text-sm md:text-lg italic text-gray-700 dark:text-white leading-relaxed">
+          {book.data.quote}
+        </blockquote>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-2 md:gap-3 text-xs md:text-sm text-gray-600 dark:text-white">
+      <span>{book.data.author}</span>
+      <span>ISBN: {book.data.ISBN}</span>
+      <span>finished: {book.data.date.toLocaleDateString('en-CA', { timeZone: 'UTC' })}</span>
+    </div>
+  </div>
+</div>

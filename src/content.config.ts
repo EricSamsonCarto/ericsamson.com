@@ -4,11 +4,11 @@ import { z } from 'astro/zod';
 
 const projectsCollection = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/projects' }),
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     description: z.string(),
     date: z.date(),
-    thumbnail: z.string().optional(),
+    thumbnail: image().optional(),
     link: z.string().url().optional(),
     github: z.string().url().optional(),
   }),
@@ -16,34 +16,35 @@ const projectsCollection = defineCollection({
 
 const booksCollection = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/books' }),
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     author: z.string(),
     quote: z.string(),
     date: z.date(),
     ISBN: z.string(),
-    thumbnail: z.string().optional(),
+    rating: z.number().int().min(1).max(5),
+    thumbnail: image(),
   }),
 });
 
 const techCollection = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/tech' }),
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     description: z.string(),
     date: z.date(),
-    thumbnail: z.string().optional(),
+    thumbnail: image().optional(),
     github: z.string().url().optional(),
   }),
 });
 
 const lifeCollection = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/life' }),
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     description: z.string(),
     date: z.date(),
-    thumbnail: z.string().optional()
+    thumbnail: image().optional()
   }),
 });
 

@@ -1,12 +1,10 @@
-import type { CollectionEntry } from 'astro:content';
+type DatedEntry = { data: { date: Date } };
 
 /**
  * Sorts collection entries by date in descending order (newest first)
  */
-export function sortByDate<T extends 'projects' | 'tech' | 'books' | 'life'>(
-  items: CollectionEntry<T>[]
-): CollectionEntry<T>[] {
-  return items.sort((a, b) => {
+export function sortByDate<T extends DatedEntry>(items: readonly T[]): T[] {
+  return items.toSorted((a, b) => {
     return b.data.date.getTime() - a.data.date.getTime();
   });
 }
@@ -14,19 +12,14 @@ export function sortByDate<T extends 'projects' | 'tech' | 'books' | 'life'>(
 /**
  * Gets the latest N items from a collection, sorted by date
  */
-export function getLatest<T extends 'projects' | 'tech' | 'books' | 'life'>(
-  items: CollectionEntry<T>[],
-  count: number
-): CollectionEntry<T>[] {
+export function getLatest<T extends DatedEntry>(items: readonly T[], count: number): T[] {
   return sortByDate(items).slice(0, count);
 }
 
 /**
  * Filters and sorts multiple collections by date
  */
-export function combineAndSortCollections<T extends 'projects' | 'tech' | 'books' | 'life'>(
-  ...collections: CollectionEntry<T>[][]
-): CollectionEntry<T>[] {
+export function combineAndSortCollections<T extends DatedEntry>(...collections: readonly T[][]): T[] {
   const combined = collections.flat();
   return sortByDate(combined);
 }

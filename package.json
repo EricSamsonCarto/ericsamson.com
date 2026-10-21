@@ -6,7 +6,10 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "add-book": "node scripts/add-book.ts",
+    "test": "node --test scripts/",
+    "check": "astro check"
   },
   "dependencies": {
     "@astrojs/mdx": "^8.1.1",
@@ -19,5 +22,10 @@
   },
   "overrides": {
     "postcss-selector-parser": "^7.1.7"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "@types/node": "^24.19.2",
+    "typescript": "^6.0.3"
   }
 }

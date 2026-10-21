@@ -1,0 +1,29 @@
+---
+import { Image } from 'astro:assets';
+import {
+  CONTENT_IMAGE_MAX_WIDTH,
+  CONTENT_IMAGE_SIZES,
+  CONTENT_IMAGE_WIDTHS,
+  qualityFor,
+  resolveContentImage,
+} from '../lib/content-images';
+
+type Props = {
+  src: string;
+  alt: string;
+  loading?: 'eager' | 'lazy';
+};
+
+const { src, alt, loading = 'lazy' } = Astro.props;
+const image = resolveContentImage(src);
+---
+
+<Image
+  src={image}
+  width={Math.min(image.width, CONTENT_IMAGE_MAX_WIDTH)}
+  quality={qualityFor(image)}
+  alt={alt}
+  widths={CONTENT_IMAGE_WIDTHS}
+  sizes={CONTENT_IMAGE_SIZES}
+  loading={loading}
+/>

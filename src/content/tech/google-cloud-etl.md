@@ -2,7 +2,7 @@
 title: "Automating a Recurring Data ETL Pipeline Entirely Within GCP"
 description: "Creating a large scale google cloud ETL pipeline that transfers data from a GCP bucket into a posgreSQL database."
 date: 2026-03-14
-thumbnail: "/public/images/writing/tech/gcp_pipeline.jpg"
+thumbnail: "../../assets/images/writing/tech/gcp_pipeline.jpg"
 github: "https://github.com/EricSamsonCarto/GCP-Data-ETL"
 ---
 

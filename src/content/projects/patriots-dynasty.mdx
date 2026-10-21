@@ -3,10 +3,10 @@ title: "Mapping Dominance: The Patriot's Dynasty"
 description: "Interactive map visualizing the Patriots' head-to-head records against every NFL team from 2001 to present day"
 date: 2019-12-19
 github: "https://github.com/EricSamsonCarto/patriots-dynasty-map"
-thumbnail: "/images/projects/patriots-dynasty/patriots-thumbnail.jpg"
+thumbnail: "../../assets/images/projects/patriots-dynasty/patriots-thumbnail.jpg"
 ---
 
-import { Image } from 'astro:assets';
+import ContentImage from '../../components/ContentImage.astro';
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" />
 <link rel="stylesheet" href="/css/patriots-dynasty.css" />
@@ -25,8 +25,8 @@ Since 2001, The Patriots have played in 50% of all super bowls, winning 33% perc
   This chart will be updated the same time that the web map above is updated.
 </div>
 
-<Image src="/images/projects/patriots-dynasty/patriots-static-map-1.jpg" alt="Patriots Dynasty Static Map 1" width={1323} height={883} />
-<Image src="/images/projects/patriots-dynasty/patriots-static-map-2.jpg" alt="Patriots Dynasty Static Map 2" width={1200} height={800} />
+<ContentImage src="projects/patriots-dynasty/patriots-static-map-1.jpg" alt="Patriots Dynasty Static Map 1" />
+<ContentImage src="projects/patriots-dynasty/patriots-static-map-2.jpg" alt="Patriots Dynasty Static Map 2" />
 <div style="text-align: center; font-style: italic; margin-top: 0.5rem; margin-bottom: 1rem;">
   The two maps above are static and therefore will not be updated. They were created on 10/20/2019.
 </div>

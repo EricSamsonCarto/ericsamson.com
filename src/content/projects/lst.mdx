@@ -3,10 +3,10 @@ title: "Calculate Land Surface Temperature"
 description: "ArcGIS Pro Python script tool that will calculate LST from user's input Landsat 8 bands."
 date: 2020-04-17
 github: "https://github.com/EricSamsonCarto/land-surface-temp-arcgispro"
-thumbnail: "/images/projects/land_surface_temperature/lst.jpg"
+thumbnail: "../../assets/images/projects/land_surface_temperature/lst.jpg"
 ---
 
-import { Image } from 'astro:assets';
+import ContentImage from '../../components/ContentImage.astro';
 import ImageSlider from '../../components/ImageSlider.astro';
 
 **Update 11/15/2022:** This tool will only work with Landsat Collection 2 Level-1 data for landsat 8. It is currently not compatible with Level-2 data.
@@ -17,11 +17,11 @@ I was working with some Landsat 8 data the other day and thought, "I wonder if I
 2. Use bands 4 and 5 to create an NDVI layer.
 3. Make a series of raster calculations using the variables gathered from the metadata file, information from the NDVI layer, and bands 10 and 11.
 
-<Image src="/images/projects/land_surface_temperature/landsat-look.jpg" alt="Landsat Look" width={1200} height={800} />
+<ContentImage src="projects/land_surface_temperature/landsat-look.jpg" alt="Landsat Look" />
 
 <ImageSlider
-  beforeImage="/images/projects/land_surface_temperature/NDVI.jpg"
-  afterImage="/images/projects/land_surface_temperature/lst.jpg"
+  beforeImage="projects/land_surface_temperature/NDVI.jpg"
+  afterImage="projects/land_surface_temperature/lst.jpg"
   beforeLabel=""
   afterLabel=""
   id="lst-ndvi-comparison"
@@ -34,7 +34,7 @@ The images above serve as a good example of the value land surface temperature d
 
 After doing the process manually a number of times, I started writing the python script as an ArcGIS pro tool.
 
-<Image src="/images/projects/land_surface_temperature/list-tool-dialog.jpg" alt="ArcGIS Pro Tool Dialog" width={1200} height={800} />
+<ContentImage src="projects/land_surface_temperature/list-tool-dialog.jpg" alt="ArcGIS Pro Tool Dialog" />
 
 The tool is capable of calculating the following products:
 

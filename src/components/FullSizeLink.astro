@@ -1,0 +1,13 @@
+---
+import { getImage } from 'astro:assets';
+import { resolveContentImage } from '../lib/content-images';
+
+type Props = {
+  src: string;
+};
+
+const { src } = Astro.props;
+const fullSizeImage = await getImage({ src: resolveContentImage(src), format: 'webp' });
+---
+
+<a href={fullSizeImage.src} target="_blank"><slot /></a>

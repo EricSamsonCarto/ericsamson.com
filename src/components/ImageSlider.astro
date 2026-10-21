@@ -3,8 +3,8 @@
  * ImageSlider Component
  * A before/after image comparison slider with drag, touch, and keyboard support
  *
- * @param beforeImage - Path to the "before" image
- * @param afterImage - Path to the "after" image
+ * @param beforeImage - Path to the "before" image, relative to src/assets/images
+ * @param afterImage - Path to the "after" image, relative to src/assets/images
  * @param beforeLabel - Label for the before image (optional)
  * @param afterLabel - Label for the after image (optional)
  * @param id - Unique ID for this slider instance (required if multiple sliders on page)
@@ -12,6 +12,7 @@
 
 import { Image } from 'astro:assets';
 import '../styles/image-slider.css';
+import { CONTENT_IMAGE_MAX_WIDTH, CONTENT_IMAGE_SIZES, CONTENT_IMAGE_WIDTHS, resolveContentImage } from '../lib/content-images';
 
 interface Props {
   beforeImage: string;
@@ -42,22 +43,24 @@ const {
   <div class="image-slider-images">
     <!-- After image (bottom layer) -->
     <Image
-      src={afterImage}
+      src={resolveContentImage(afterImage)}
       alt={`${alt} - ${afterLabel}`}
       class="image-slider-after"
       loading="lazy"
-      width={1200}
-      height={800}
+      width={CONTENT_IMAGE_MAX_WIDTH}
+      widths={CONTENT_IMAGE_WIDTHS}
+      sizes={CONTENT_IMAGE_SIZES}
     />
 
     <!-- Before image (top layer, clipped) -->
     <Image
-      src={beforeImage}
+      src={resolveContentImage(beforeImage)}
       alt={`${alt} - ${beforeLabel}`}
       class="image-slider-before"
       loading="lazy"
-      width={1200}
-      height={800}
+      width={CONTENT_IMAGE_MAX_WIDTH}
+      widths={CONTENT_IMAGE_WIDTHS}
+      sizes={CONTENT_IMAGE_SIZES}
     />
 
     <!-- Slider handle -->

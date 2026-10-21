@@ -1,0 +1,28 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { BOOK_COVER_HEIGHT, BOOK_COVER_WIDTH } from '../lib/content-images';
+
+type Props = {
+  book: CollectionEntry<'books'>;
+  eager?: boolean;
+}
+
+const { book, eager = false } = Astro.props;
+---
+
+<a
+  href={`#${book.id}`}
+  class="group block overflow-hidden rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200"
+  aria-haspopup="dialog"
+>
+  <Image
+    src={book.data.thumbnail}
+    alt={`${book.data.title} by ${book.data.author}`}
+    width={BOOK_COVER_WIDTH}
+    height={BOOK_COVER_HEIGHT}
+    fit="cover"
+    class="w-full aspect-[2/3] object-cover group-hover:scale-105 transition-transform duration-200"
+    loading={eager ? 'eager' : 'lazy'}
+  />
+</a>
