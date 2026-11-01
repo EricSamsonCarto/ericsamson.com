@@ -1,11 +1,11 @@
 ---
-import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import PageLayout from '../layouts/PageLayout.astro';
 import ContentPreviewGrid from '../components/ContentPreviewGrid.astro';
+import SwipePhotos from '../components/SwipePhotos.astro';
 import { getLatest } from '../lib/content-helpers';
 import headshot from '../assets/images/headshot.jpg';
-import { CONTENT_IMAGE_MAX_WIDTH, CONTENT_IMAGE_SIZES, CONTENT_IMAGE_WIDTHS } from '../lib/content-images';
+import ericSamson from '../assets/images/eric-samson.jpg';
 
 const allProjects = await getCollection('projects');
 const allTech = await getCollection('tech');
@@ -35,18 +35,15 @@ const latestTech = getLatest(allTech, 3);
 
 			<div class="mt-3"></div>
 			<h1 class="text-4xl md:text-5xl font-bold mb-6">
-				Hi, I'm Eric 🗺️
+				Hi, I'm Eric.
 			</h1>
 
-			<Image
-				src={headshot}
-				alt="Eric Samson headshot"
-				width={CONTENT_IMAGE_MAX_WIDTH}
-				widths={CONTENT_IMAGE_WIDTHS}
-				sizes={CONTENT_IMAGE_SIZES}
-				class="rounded-lg shadow-lg mb-6 w-full"
-				loading="eager"
-				fetchpriority="high"
+			<SwipePhotos
+				label="Photos of Eric"
+				photos={[
+					{ src: ericSamson, alt: 'Eric Samson at an alpine lake' },
+					{ src: headshot, alt: 'Eric Samson headshot' },
+				]}
 			/>
 		</div>
 
