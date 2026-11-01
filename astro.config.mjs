@@ -9,6 +9,12 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
   integrations: [mdx()],
+  build: {
+    inlineStylesheets: 'always',
+  },
+  redirects: {
+    '/writing/tech/google-cloud-etl': '/projects/google-cloud-etl',
+  },
   markdown: {
     processor: satteri({ hastPlugins: [externalLinksPlugin] }),
   },

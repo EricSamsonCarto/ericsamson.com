@@ -20,7 +20,7 @@ const { title } = Astro.props;
     <title>{title}</title>
     <script is:inline>
       // Initialize theme before page renders to prevent flash
-      const theme = localStorage.getItem('theme') || 'light';
+      const theme = localStorage.getItem('theme') || 'dark';
       if (theme === 'dark') {
         document.documentElement.classList.add('dark');
       }

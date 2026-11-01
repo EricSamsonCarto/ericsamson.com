@@ -45,11 +45,12 @@ const teamLogos = [
 $.when(patriots_gist).done(function() {
   const map = L.map("map").setView([39.072825, -92.598557], 4);
 
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-    subdomains: 'abcd',
-    maxZoom: 6,
-    minZoom: 4,
+  map.setMinZoom(4);
+  map.setMaxZoom(6);
+
+  L.maplibreGL({
+    style: 'https://tiles.openfreemap.org/styles/positron',
+    attribution: '<a href="https://openfreemap.org" target="_blank">OpenFreeMap</a> &copy; <a href="https://www.openmaptiles.org/" target="_blank">OpenMapTiles</a> Data from <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
   }).addTo(map);
 
   function teamBoundaryStyle(feature) {
@@ -147,7 +148,7 @@ $.when(patriots_gist).done(function() {
     });
   });
 
-  const baseUrl = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/3352342/';
+  const baseUrl = '/images/patriots-logos/';
 
   teamLogos.forEach(team => {
     L.imageOverlay(`${baseUrl}${team.url}`, team.bounds, {
