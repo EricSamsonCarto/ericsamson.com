@@ -17,6 +17,7 @@ export const CARD_IMAGE_WIDTHS = [240, 320, 480, 640];
 export const CARD_IMAGE_MAX_WIDTH = 640;
 export const CARD_IMAGE_SIZES = '(min-width: 768px) 224px, 50vw';
 export const CARD_IMAGE_QUALITY = 70;
+export const PHOTO_IMAGE_QUALITY = 65;
 
 export const BOOK_COVER_WIDTH = 280;
 export const BOOK_COVER_HEIGHT = 420;
