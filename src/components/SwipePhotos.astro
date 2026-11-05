@@ -61,18 +61,6 @@ const { photos, label } = Astro.props;
       </svg>
     </button>
   </div>
-
-  <div class="flex justify-center gap-2 mt-3">
-    {photos.map((photo, index) => (
-      <button
-        type="button"
-        class="w-2 h-2 rounded-full bg-gray-300 dark:bg-neutral-600 aria-[current=true]:bg-gray-700 dark:aria-[current=true]:bg-white transition-colors"
-        aria-label={`Show photo ${index + 1}: ${photo.alt}`}
-        aria-current={index === 0 ? 'true' : 'false'}
-        data-swipe-dot={index}
-      ></button>
-    ))}
-  </div>
 </div>
 
 <style>
