@@ -3,7 +3,7 @@ import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
 const projectsCollection = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/projects' }),
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/projects' }),
   schema: ({ image }) => z.object({
     title: z.string(),
     description: z.string(),
@@ -15,7 +15,7 @@ const projectsCollection = defineCollection({
 });
 
 const booksCollection = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/books' }),
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/books' }),
   schema: ({ image }) => z.object({
     title: z.string(),
     author: z.string(),
@@ -28,7 +28,7 @@ const booksCollection = defineCollection({
 });
 
 const techCollection = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/tech' }),
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/tech' }),
   schema: ({ image }) => z.object({
     title: z.string(),
     description: z.string(),
@@ -39,7 +39,7 @@ const techCollection = defineCollection({
 });
 
 const lifeCollection = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/life' }),
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/life' }),
   schema: ({ image }) => z.object({
     title: z.string(),
     description: z.string(),

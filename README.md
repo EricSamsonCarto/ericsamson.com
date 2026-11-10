@@ -58,6 +58,7 @@ Text here.
 - URL is the filename: `/writing/tech/my-slug`, `/projects/my-slug`.
 - Projects can also have `link:` and `github:`. Tech posts can have `github:`.
 - A post with `github:` or `link:` gets a GitHub or Live Demo link.
+- To hide a post without deleting it, put `_` at the start of its filename (`_my-slug.mdx`). Remove the `_` to bring it back.
 - The back link and date label ("completed on" or "written on") are set in `ARTICLE_SETTINGS` in `src/layouts/ArticleLayout.astro`.
 
 ### Add a section
