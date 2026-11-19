@@ -4,6 +4,8 @@ description: "Using a GitHub Pages repo to host PMTiles and geoparquet GIS data.
 date: 2026-10-21
 thumbnail: "../../assets/images/writing/tech/gis-hub.jpg"
 github: "https://github.com/EricSamsonCarto/gis-data-hub"
+link: "https://ericsamsoncarto.github.io/gis-data-hub/"
+linkText: "Visit the GIS Data Hub"
 ---
 
 In my [PMTiles post](/writing/tech/pmtiles) I mentioned that the Colorado buildings file lives on a [GitHub Pages site](https://ericsamsoncarto.github.io/gis-data-hub/).

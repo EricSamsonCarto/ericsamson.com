@@ -3,6 +3,8 @@ title: "Zillow ZHVI Dataset Dashboard"
 description: "Creating a streamlit dashboard to filter the Zillow ZHVI public dataset"
 date: 2022-09-05
 github: "https://github.com/EricSamsonCarto/zillow-streamlit-dashboard"
+link: "https://zillow-app-dashboard-1.streamlit.app/"
+linkText: "View Live Dashboard"
 thumbnail: "../../assets/images/projects/zillow/zillow.jpg"
 ---
 

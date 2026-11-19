@@ -2,6 +2,11 @@ import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
+const liveLinkFields = {
+  link: z.union([z.string().url(), z.string().startsWith('/')]).optional(),
+  linkText: z.string().optional(),
+};
+
 const projectsCollection = defineCollection({
   loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/projects' }),
   schema: ({ image }) => z.object({
@@ -9,7 +14,7 @@ const projectsCollection = defineCollection({
     description: z.string(),
     date: z.date(),
     thumbnail: image().optional(),
-    link: z.string().url().optional(),
+    ...liveLinkFields,
     github: z.string().url().optional(),
   }),
 });
@@ -34,6 +39,7 @@ const techCollection = defineCollection({
     description: z.string(),
     date: z.date(),
     thumbnail: image().optional(),
+    ...liveLinkFields,
     github: z.string().url().optional(),
   }),
 });

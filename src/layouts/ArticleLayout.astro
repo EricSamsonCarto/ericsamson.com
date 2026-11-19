@@ -20,7 +20,8 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 const settings = ARTICLE_SETTINGS[post.collection];
 const github = 'github' in post.data ? post.data.github : undefined;
-const demoLink = 'link' in post.data ? post.data.link : undefined;
+const liveLink = 'link' in post.data ? post.data.link : undefined;
+const liveLinkText = ('linkText' in post.data ? post.data.linkText : undefined) ?? 'View Live';
 ---
 
 <PageLayout title={post.data.title}>
@@ -49,7 +50,7 @@ const demoLink = 'link' in post.data ? post.data.link : undefined;
       </p>
     </div>
 
-    {(github || demoLink) && (
+    {(github || liveLink) && (
       <div class="flex gap-4 mb-3">
         {github && (
           <a href={github} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm text-gray-700 hover:text-gray-900 hover:underline">
@@ -59,12 +60,12 @@ const demoLink = 'link' in post.data ? post.data.link : undefined;
             View on GitHub
           </a>
         )}
-        {demoLink && (
-          <a href={demoLink} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm text-gray-700 hover:text-gray-900 hover:underline">
+        {liveLink && (
+          <a href={liveLink} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm text-gray-700 hover:text-gray-900 hover:underline">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
-            Live Demo
+            {liveLinkText}
           </a>
         )}
       </div>
