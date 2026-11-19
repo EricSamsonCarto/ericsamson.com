@@ -1,0 +1,73 @@
+---
+title: "Introducing Conness GIS"
+description: "An open-source framework for building GIS web apps on MapLibre GL JS"
+date: 2026-11-18
+github: "https://github.com/EricSamsonCarto/conness-gis"
+link: "https://conness-gis.com"
+thumbnail: "../../assets/images/projects/conness-gis/conness-demo.jpg"
+---
+
+import ContentImage from '../../components/ContentImage.astro';
+
+Conness GIS is out! It's an open-source framework for building GIS web apps on [MapLibre GL JS](https://maplibre.org/), and 1.0.0 went up on GitHub today, November 18, 2026. It's free and Apache 2.0 licensed, so you can use it for commercial work too (as long as you remove the commercial services that are packaged within it). It's named after [Mount Conness](https://en.wikipedia.org/wiki/Mount_Conness), a mountain in the Sierra Nevada.
+
+<ContentImage src="projects/conness-gis/mtconness.jpg" alt="Mount Conness" />
+
+## Why this even exists
+
+I got the idea while working with a couple of proprietary GIS app builders. You know the type. You pick some widgets, fill in a bunch of settings, and out comes a web map. They work, but they're closed, and you get whatever the vendor decides to give you. No need to name names.
+
+So I had the thought: what if I had reusable widgets, themes and layouts already built for MapLibre? I could ship open-source GIS apps quickly and reuse the same tools every time. I could have kept an organized codebase skeleton around for myself and called it a day. But I knew I could make something a little bigger that anyone could reach for.
+
+It started as a challenge for myself. Now it's more of a utility. I have a lot of ideas for GIS apps, and I can get a demo of any of them up fairly quickly.
+
+## How it works
+
+You build an app in the editor, which runs on your own computer. Your settings are on the left and your app is running on the right. Change a color or add a layer and the app updates as you go. When you're happy with it, click Build, and you get a zip you can put on any static host.
+
+<ContentImage src="projects/conness-gis/editor.jpg" alt="The editor, with a project's settings on the left and the app on the right" />
+
+Everything the editor saves is a set of plain files (`settings.json`, `layers.json`, `theme.json` and a few others), one folder per project. So you can also edit them by hand (if you are into that sort of thing). Hover a setting in VS Code and it tells you what it does, its default, and links to its docs.
+
+The framework code is kept apart from your project files. That split is what lets a new release, hopefully, replace the framework without touching your projects.
+
+It took me about 11 months to complete this project. Here's a short list of things you get right out of the box:
+
+- Layers from GeoJSON, PMTiles (vector or raster), FlatGeobuf, GeoParquet, tile servers and ArcGIS REST services. GeoParquet runs on DuckDB right in the browser, so files in a projected coordinate system get reprojected for you, and big files can be cut into tiles on the fly.
+- Layer list, legend, basemap, search, measure, draw, bookmarks and coordinates widgets. Turn them on and put them where you want.
+- Feature popups from templates you control.
+- Color presets, and every color can be changed. Change the primary color and most of the app updates.
+- Mobile ready out of the box, with a button in the editor to see how your app looks on a phone.
+
+<ContentImage src="projects/conness-gis/conness-demo.jpg" alt="The demo app, with the layer list open beside the map" />
+
+You can also write your own widgets. Every release has a `WIDGETS.md` that explains the shared pieces a widget can use, so yours ends up looking like the rest of the app. Feed it to the AI of your choice, or read it yourself if you plan to code like it's 2022.
+
+## Lemme Try
+
+Use Node 26. Download the latest zip from the [Releases](https://conness-gis.com/getting-started/releases/) page, unzip it, and from that folder run:
+
+```bash
+cd app && npm ci
+npm start
+```
+
+Open the URL it prints, click **New project**, and you've got a working map app to start from.
+
+<ContentImage src="projects/conness-gis/starting-page.jpg" alt="The projects page with no projects yet" />
+
+The [Quick Start](https://conness-gis.com/getting-started/quick-start/) covers the rest, like keeping your copy on GitHub and hosting your app on Cloudflare.
+
+## What's next
+
+I plan on this project to be continuously built out. I have a lot of map application ideas I want to build. I think through fully building out some of those projects using Conness will allow me to contribute back to this project. I am the creator and the customer. That way I can continue to flesh it out, find any bugs or missing capabilities, and then fix/add those.
+
+<ContentImage src="projects/conness-gis/global-earthquakes.jpg" alt="The Global Earthquakes example app" />
+
+<ContentImage src="projects/conness-gis/yosemite-trails.jpg" alt="The Yosemite Trails example app" />
+
+If you want to contribute, please submit a PR.
+
+A few things I want to add: undo and redo in the editor, style builders for categories and number ranges (so you don't have to hand-write MapLibre expressions, see pop-ups in the documentation), click tolerance for popups so thin lines are easier to hit, the map position in the URL, and groups within groups in the layer list.
+
+If you find a bug or think something is missing, open an issue on [GitHub](https://github.com/EricSamsonCarto/conness-gis). The docs are at [conness-gis.com](https://conness-gis.com). Go build something!
